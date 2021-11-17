@@ -12,7 +12,7 @@ import javax.persistence.Id;
 public class User {
 
     @Id
-    @Column(length = 4)
+    @Column(unique = false)
     private String name;
 
     @Column(unique = false)
