@@ -29,10 +29,11 @@ public class User implements UserDetails {
     private Role role;
 
     @Builder
-    private User(String name, String password, String email) {
+    private User(String name, String password, String email, Role role) {
         this.email = email;
         this.name = name;
         this.password = password;
+        this.role = role;
     }
 
     @Override
