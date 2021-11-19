@@ -17,12 +17,13 @@ import java.io.Serializable;
 public class RefreshTokenEntity implements Serializable {
 
     @Id
-    private  String email;
+    private String email;
 
     private String refreshToken;
 
     @TimeToLive
     private Long refreshExp;
+
     public RefreshTokenEntity update(String token, Long ttl) {
         this.refreshToken = token;
         return this;
