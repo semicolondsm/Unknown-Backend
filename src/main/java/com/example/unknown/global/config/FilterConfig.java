@@ -1,7 +1,7 @@
-package com.example.unknown.config;
+package com.example.unknown.global.config;
 
-import com.example.unknown.security.jwt.Auth.TokenFilter;
-import com.example.unknown.security.jwt.JwtProvider;
+import com.example.unknown.global.security.Auth.TokenFilter;
+import com.example.unknown.global.security.jwt.JwtProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.config.annotation.SecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
