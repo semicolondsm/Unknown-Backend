@@ -1,6 +1,6 @@
 package com.example.unknown.security.jwt.Auth;
 
-import com.example.unknown.entity.repository.user.UserRepository;
+import com.example.unknown.entity.repository.auth.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

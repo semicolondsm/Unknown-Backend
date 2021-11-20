@@ -1,6 +1,6 @@
-package com.example.unknown.entity.repository.user;
+package com.example.unknown.entity.repository.auth;
 
-import com.example.unknown.entity.user.User;
+import com.example.unknown.entity.auth.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

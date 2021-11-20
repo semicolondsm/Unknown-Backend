@@ -1,6 +1,9 @@
-package com.example.unknown.entity.user;
+package com.example.unknown.entity.auth;
 
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,24 +18,21 @@ import java.util.Collections;
 public class User implements UserDetails {
 
     @Id
-    @Column(unique = false)
-    private String name;
+    @Column()
+    private String id;
 
     @Column(unique = false)
     private String password;
-
-    @Column(length = 20)
-    private String email;
 
     @Column(length = 20)
     @Enumerated(EnumType.STRING)
     private Role role;
 
     @Builder
-    private User(String name, String password, String email) {
-        this.email = email;
-        this.name = name;
+    private User(String id, String password, Role role) {
+        this.id = id;
         this.password = password;
+        this.role = role;
     }
 
     @Override
@@ -42,7 +42,7 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return name;
+        return id;
     }
 
     @Override
