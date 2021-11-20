@@ -1,6 +1,6 @@
-package com.example.unknown.security.jwt.Auth;
+package com.example.unknown.global.security.Auth;
 
-import com.example.unknown.security.jwt.JwtProvider;
+import com.example.unknown.global.security.jwt.JwtProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;

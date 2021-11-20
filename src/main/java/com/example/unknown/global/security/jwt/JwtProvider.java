@@ -1,6 +1,6 @@
-package com.example.unknown.security.jwt;
+package com.example.unknown.global.security.jwt;
 
-import com.example.unknown.security.jwt.Auth.AuthUserDetailsService;
+import com.example.unknown.global.security.Auth.AuthUserDetailsService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

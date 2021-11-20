@@ -1,4 +1,4 @@
-package com.example.unknown.security.jwt.Auth;
+package com.example.unknown.global.security.Auth;
 
 import com.example.unknown.entity.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
