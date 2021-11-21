@@ -1,11 +1,11 @@
 package com.example.unknown.exception;
 
+import com.example.unknown.global.error.CustomException;
 import com.example.unknown.global.error.ErrorCode;
-import com.example.unknown.global.error.UnknownException;
 
-public class InvalidRoleException extends UnknownException {
+public class InvalidRoleException extends CustomException {
 
-    public static UnknownException EXCEPTION =
+    public static CustomException EXCEPTION =
             new InvalidRoleException();
 
     private InvalidRoleException() {

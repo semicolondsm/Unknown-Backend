@@ -7,6 +7,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum ErrorCode {
 
+    INVALID_TOKEN(403, "Invalid Token"),
     INVALID_PASSWORD(400, "Invalid Password"),
     INVALID_ROLE(400, "Invalid Role"),
     USER_NOT_EXISTS(404, "User Not Exists"),

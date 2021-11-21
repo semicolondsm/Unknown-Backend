@@ -1,14 +1,14 @@
 package com.example.unknown.exception;
 
+import com.example.unknown.global.error.CustomException;
 import com.example.unknown.global.error.ErrorCode;
-import com.example.unknown.global.error.UnknownException;
 
-public class UserExistsException extends UnknownException {
+public class UserExistsException extends CustomException {
 
-    public static UnknownException EXCEPTION =
+    public static CustomException EXCEPTION =
             new UserExistsException();
 
     private UserExistsException() {
-        super(ErrorCode.UESR_EIXSTS);
+        super(ErrorCode.USER_EXISTS);
     }
 }

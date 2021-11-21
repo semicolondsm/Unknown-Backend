@@ -1,10 +1,14 @@
 package com.example.unknown.exception;
 
-import com.example.unknown.util.HttpStatusResponseEntity;
+import com.example.unknown.global.error.CustomException;
+import com.example.unknown.global.error.ErrorCode;
 
-public class InvalidTokenException extends CustomException{
+public class InvalidTokenException extends CustomException {
 
-    public InvalidTokenException(HttpStatusResponseEntity httpStatusResponseEntity) {
-        super(HttpStatusResponseEntity.RESPONSE_INVALID_TOKEN);
+    public static CustomException EXCEPTION =
+            new InvalidTokenException();
+
+    private InvalidTokenException() {
+        super(ErrorCode.INVALID_TOKEN);
     }
 }
