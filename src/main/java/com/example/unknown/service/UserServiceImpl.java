@@ -9,7 +9,7 @@ import com.example.unknown.exception.InvalidPasswordException;
 import com.example.unknown.exception.InvalidRoleException;
 import com.example.unknown.exception.UserExistsException;
 import com.example.unknown.exception.UserNotExistsException;
-import com.example.unknown.global.security.jwt.JwtProvider;
+import com.example.unknown.security.jwt.JwtProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -48,6 +48,9 @@ public class UserServiceImpl implements UserService {
             throw InvalidPasswordException.EXCEPTION;
         }
 
-        return new TokenResponse(jwtProvider.generateAccessToken(request.getId()));
+        String access_token = jwtProvider.generateAccessToken(request.getId());
+        String refresh_token = jwtProvider.generateRefreshToken(request.getId());
+
+        return new TokenResponse(access_token, refresh_token);
     }
 }
