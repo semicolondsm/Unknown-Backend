@@ -1,4 +1,4 @@
-package com.example.unknown.entity.user;
+package com.example.unknown.entity.auth;
 
 public enum Role {
 
