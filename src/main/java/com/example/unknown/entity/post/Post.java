@@ -1,4 +1,4 @@
-package com.example.unknown.entity.content;
+package com.example.unknown.entity.post;
 
 import com.example.unknown.entity.BaseTimeEntity;
 import lombok.*;
