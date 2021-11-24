@@ -19,7 +19,7 @@ public class User implements UserDetails {
 
     @Id
     @Column()
-    private String id;
+    private String email;
 
     @Column(unique = false)
     private String password;
@@ -29,8 +29,8 @@ public class User implements UserDetails {
     private Role role;
 
     @Builder
-    private User(String id, String password, Role role) {
-        this.id = id;
+    private User(String email, String password, Role role) {
+        this.email = email;
         this.password = password;
         this.role = role;
     }
@@ -42,7 +42,7 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return id;
+        return email;
     }
 
     @Override
