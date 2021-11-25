@@ -1,5 +1,6 @@
 package com.example.unknown.service;
 
+import com.example.unknown.dto.request.ChangePasswordRequest;
 import com.example.unknown.dto.request.UserRequest;
 import com.example.unknown.dto.response.TokenResponse;
 import com.example.unknown.entity.auth.Role;
@@ -52,5 +53,18 @@ public class UserServiceImpl implements UserService {
         String refresh_token = jwtProvider.generateRefreshToken(request.getEmail());
 
         return new TokenResponse(access_token, refresh_token);
+    }
+
+    @Override
+    public void changePassword(ChangePasswordRequest request) {
+
+        User user = userRepository.findByEmail(request.getEmail())
+                .orElseThrow(() -> UserNotExistsException.EXCEPTION);
+
+        if (!passwordEncoder.matches(user.getPassword(), request.getPassword())) {
+            throw InvalidPasswordException.EXCEPTION;
+        }
+
+        user.updatePassword(passwordEncoder.encode(request.getNewPassword()));
     }
 }

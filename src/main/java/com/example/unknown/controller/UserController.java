@@ -1,13 +1,11 @@
 package com.example.unknown.controller;
 
+import com.example.unknown.dto.request.ChangePasswordRequest;
 import com.example.unknown.dto.request.UserRequest;
 import com.example.unknown.dto.response.TokenResponse;
 import com.example.unknown.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -26,5 +24,10 @@ public class UserController {
     @PostMapping("/login")
     public TokenResponse login(@RequestBody @Valid UserRequest request) {
         return userService.login(request);
+    }
+
+    @PutMapping("/password")
+    public void changePassword(ChangePasswordRequest request) {
+        userService.changePassword(request);
     }
 }
