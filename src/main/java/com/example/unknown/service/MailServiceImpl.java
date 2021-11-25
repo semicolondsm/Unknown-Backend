@@ -1,8 +1,10 @@
 package com.example.unknown.service;
 
 import com.example.unknown.dto.request.SendEmailRequest;
+import com.example.unknown.dto.request.VerifyCodeRequest;
 import com.example.unknown.entity.Redis;
 import com.example.unknown.entity.repository.RedisRepository;
+import com.example.unknown.exception.InvalidCodeException;
 import com.example.unknown.exception.SendMailFailedException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -49,6 +51,23 @@ public class MailServiceImpl implements MailService {
             e.getStackTrace();
             throw SendMailFailedException.EXCEPTION;
         }
+    }
+
+    @Override
+    public void verifyEmail(VerifyCodeRequest request) {
+
+        Redis redis = redisRepository.findById(request.getEmail())
+                .orElseThrow(() -> InvalidCodeException.EXCEPTION);
+
+        if (!redis.getCode().equals(request.getCode())) {
+            throw InvalidCodeException.EXCEPTION;
+        }
+
+        redisRepository.save(Redis.builder()
+                .email(request.getEmail())
+                .code("Verify")
+                .ttl(REDIS_TTL)
+                .build());
     }
 
     //랜덤 숫자코드 생성
