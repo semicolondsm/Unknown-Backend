@@ -24,12 +24,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void signUp(UserRequest request) {
-        if (userRepository.findById(request.getId()).isPresent()) {
+        if (userRepository.findByEmail(request.getEmail()).isPresent()) {
             throw UserExistsException.EXCEPTION;
         }
 
         userRepository.save(User.builder()
-                .id(request.getId())
+                .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .role(Role.ROLE_USER)
                 .build());
@@ -37,7 +37,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public TokenResponse login(UserRequest request) {
-        User user = userRepository.findById(request.getId())
+        User user = userRepository.findById(request.getEmail())
                 .orElseThrow(() -> UserNotExistsException.EXCEPTION);
 
         if (!user.getRole().equals(Role.ROLE_USER)) {
@@ -48,8 +48,8 @@ public class UserServiceImpl implements UserService {
             throw InvalidPasswordException.EXCEPTION;
         }
 
-        String access_token = jwtProvider.generateAccessToken(request.getId());
-        String refresh_token = jwtProvider.generateRefreshToken(request.getId());
+        String access_token = jwtProvider.generateAccessToken(request.getEmail());
+        String refresh_token = jwtProvider.generateRefreshToken(request.getEmail());
 
         return new TokenResponse(access_token, refresh_token);
     }

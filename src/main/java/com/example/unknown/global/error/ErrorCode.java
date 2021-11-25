@@ -7,6 +7,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum ErrorCode {
 
+    SEND_FAILED_MAIL(400, "Send Message Failed"),
     INVALID_TOKEN(403, "Invalid Token"),
     INVALID_PASSWORD(400, "Invalid Password"),
     INVALID_ROLE(400, "Invalid Role"),
