@@ -8,12 +8,13 @@ import javax.persistence.*;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity(name = "unknown-content")
+
 public class Post extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false)
-    private Integer id;
+    private Long id;
 
     @Column(length = 30)
     private String title;
@@ -23,8 +24,8 @@ public class Post extends BaseTimeEntity {
     private String description;
 
     @Builder
-    public Post (Integer id, String title, String description) {
-        this.id = id;
+    public Post (Long id, String title, String description) {
+        this.id=(id);
         this.title = title;
         this.description = description;
     }
@@ -38,7 +39,5 @@ public class Post extends BaseTimeEntity {
         this.description = description;
         return this;
     }
-
-
 
 }
