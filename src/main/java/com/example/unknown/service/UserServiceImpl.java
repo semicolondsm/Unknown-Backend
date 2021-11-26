@@ -33,7 +33,7 @@ public class UserServiceImpl implements UserService {
         }
 
         Redis redis = redisRepository.findById(request.getEmail())
-                .orElseThrow(() -> UserNotExistsException.EXCEPTION);
+                .orElseThrow(() -> UserNotVerificationException.EXCEPTION);
 
         if (!redis.getCode().equals("Email Verify")) {
             throw InvalidCodeException.EXCEPTION;
