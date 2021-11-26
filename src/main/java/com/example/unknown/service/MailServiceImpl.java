@@ -6,6 +6,7 @@ import com.example.unknown.entity.Redis;
 import com.example.unknown.entity.repository.RedisRepository;
 import com.example.unknown.exception.InvalidCodeException;
 import com.example.unknown.exception.SendMailFailedException;
+import com.example.unknown.exception.UserNotExistsException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.scheduling.annotation.Async;
@@ -34,13 +35,12 @@ public class MailServiceImpl implements MailService {
     public void sendEmail(SendEmailRequest request) {
         try {
             String code = createCode();
-            //
+
             MimeMessage mail = mailSender.createMimeMessage();
             mail.addRecipients(Message.RecipientType.TO, request.getEmail());
             mail.setFrom(request.getEmail());
             mail.setSubject("[Unknown] Email 인증 요청 메일입니다.");
             mail.setText("6자리 인증코드 : " + code);
-            //
 
             redisRepository.findById(request.getEmail())
                     .or(() -> Optional.of(new Redis(request.getEmail(), code, REDIS_TTL)))
@@ -57,7 +57,7 @@ public class MailServiceImpl implements MailService {
     public void verifyEmail(VerifyCodeRequest request) {
 
         Redis redis = redisRepository.findById(request.getEmail())
-                .orElseThrow(() -> InvalidCodeException.EXCEPTION);
+                .orElseThrow(() -> UserNotExistsException.EXCEPTION);
 
         if (!redis.getCode().equals(request.getCode())) {
             throw InvalidCodeException.EXCEPTION;
@@ -65,22 +65,20 @@ public class MailServiceImpl implements MailService {
 
         redisRepository.save(Redis.builder()
                 .email(request.getEmail())
-                .code("Verify")
+                .code("Email Verify")
                 .ttl(REDIS_TTL)
                 .build());
     }
 
-    //랜덤 숫자코드 생성
     private static String createKey() {
         key.setLength(0);
 
-        for (int i = 0; i < CODE_LENGTH; i++) { // 인증코드 6자리
+        for (int i = 0; i < CODE_LENGTH; i++) {
             key.append((random.nextInt(10)));
         }
         return key.toString();
     }
 
-    //코드 형식
     private String createCode() {
         return MailServiceImpl.createKey.substring(0, 3) + "-" + MailServiceImpl.createKey.substring(3, 6);
     }

@@ -1,14 +1,15 @@
 package com.example.unknown.service;
 
+import com.example.unknown.dto.request.ChangePasswordRequest;
 import com.example.unknown.dto.request.UserRequest;
+import com.example.unknown.dto.request.VerifyCodeRequest;
 import com.example.unknown.dto.response.TokenResponse;
+import com.example.unknown.entity.Redis;
 import com.example.unknown.entity.auth.Role;
 import com.example.unknown.entity.auth.User;
+import com.example.unknown.entity.repository.RedisRepository;
 import com.example.unknown.entity.repository.auth.UserRepository;
-import com.example.unknown.exception.InvalidPasswordException;
-import com.example.unknown.exception.InvalidRoleException;
-import com.example.unknown.exception.UserExistsException;
-import com.example.unknown.exception.UserNotExistsException;
+import com.example.unknown.exception.*;
 import com.example.unknown.security.jwt.JwtProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -18,7 +19,10 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
+    private static final Integer REDIS_TTL = 3 * 60;
+
     private final UserRepository userRepository;
+    private final RedisRepository redisRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtProvider jwtProvider;
 
@@ -26,6 +30,13 @@ public class UserServiceImpl implements UserService {
     public void signUp(UserRequest request) {
         if (userRepository.findByEmail(request.getEmail()).isPresent()) {
             throw UserExistsException.EXCEPTION;
+        }
+
+        Redis redis = redisRepository.findById(request.getEmail())
+                .orElseThrow(() -> UserNotExistsException.EXCEPTION);
+
+        if (!redis.getCode().equals("Email Verify")) {
+            throw InvalidCodeException.EXCEPTION;
         }
 
         userRepository.save(User.builder()
