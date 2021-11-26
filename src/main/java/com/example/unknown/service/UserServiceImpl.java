@@ -53,4 +53,36 @@ public class UserServiceImpl implements UserService {
 
         return new TokenResponse(access_token, refresh_token);
     }
+
+    @Override
+    public void verifyPassword(VerifyCodeRequest request) {
+
+        Redis redis = redisRepository.findById(request.getEmail())
+                .orElseThrow(() -> UserNotExistsException.EXCEPTION);
+
+        if (!redis.getCode().equals(request.getCode())) {
+            throw InvalidCodeException.EXCEPTION;
+        }
+
+        redisRepository.save(Redis.builder()
+                .email(request.getEmail())
+                .code("Password Verify")
+                .ttl(REDIS_TTL)
+                .build());
+    }
+
+    @Override
+    public void changePassword(ChangePasswordRequest request) {
+
+        Redis redis = redisRepository.findById(request.getEmail())
+                .orElseThrow(() -> UserNotVerificationException.EXCEPTION);
+
+        if (!redis.getCode().equals("Password Verify")) {
+            throw InvalidCodeException.EXCEPTION;
+        }
+
+        userRepository.findByEmail(request.getEmail())
+                .map(user -> user.updatePassword(passwordEncoder.encode(request.getNewPassword())))
+                .orElseThrow(() -> UserNotExistsException.EXCEPTION);
+    }
 }
