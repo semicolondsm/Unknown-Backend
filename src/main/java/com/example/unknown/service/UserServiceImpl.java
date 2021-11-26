@@ -69,7 +69,7 @@ public class UserServiceImpl implements UserService {
     public void verifyPassword(VerifyCodeRequest request) {
 
         Redis redis = redisRepository.findById(request.getEmail())
-                .orElseThrow(() -> UserNotExistsException.EXCEPTION);
+                .orElseThrow(() -> UserNotVerificationException.EXCEPTION);
 
         if (!redis.getCode().equals(request.getCode())) {
             throw InvalidCodeException.EXCEPTION;
