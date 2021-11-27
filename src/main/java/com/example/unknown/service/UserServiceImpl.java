@@ -48,7 +48,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public TokenResponse login(UserRequest request) {
-        User user = userRepository.findById(request.getEmail())
+        User user = userRepository.findByEmail(request.getEmail())
                 .orElseThrow(() -> UserNotExistsException.EXCEPTION);
 
         if (!user.getRole().equals(Role.ROLE_USER)) {
