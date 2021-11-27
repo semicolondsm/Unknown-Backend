@@ -31,22 +31,22 @@ public class UserController {
     }
 
     @PostMapping("/email")
-    public void sendEmail(SendEmailRequest request) {
+    public void sendEmail(@RequestBody @Valid SendEmailRequest request) {
         mailService.sendEmail(request);
     }
 
     @PutMapping("/email/verify")
-    public void verifyEmail(VerifyCodeRequest request) {
+    public void verifyEmail(@RequestBody @Valid VerifyCodeRequest request) {
         mailService.verifyEmail(request);
     }
 
     @PutMapping("/password/verify")
-    public void verifyPassword(VerifyCodeRequest request) {
+    public void verifyPassword(@RequestBody @Valid VerifyCodeRequest request) {
         userService.verifyPassword(request);
     }
 
     @PutMapping("/password")
-    public void changePassword(ChangePasswordRequest request) {
+    public void changePassword(@RequestBody @Valid ChangePasswordRequest request) {
         userService.changePassword(request);
     }
 }
