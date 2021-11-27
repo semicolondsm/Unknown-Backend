@@ -35,6 +35,11 @@ public class User implements UserDetails {
         this.role = role;
     }
 
+    public User updatePassword(String password) {
+        this.password = password;
+        return this;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return Collections.singleton(new SimpleGrantedAuthority(role.name()));
