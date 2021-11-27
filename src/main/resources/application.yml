@@ -31,5 +31,13 @@ spring:
     port: ${REDIS_PORT}
     host: ${REDIS_HOST}
 
+  logging:
+    file:
+      path: ${PATH/}
+      max-size: 500MB
+      max-history: 10
+    level:
+      root: info
+      me.hong.kotlinspring: debug
 
 
