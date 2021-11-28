@@ -4,47 +4,40 @@ server:
 spring:
 
   jwt:
-    secret: ${JWT_SECRET}
-    header: ${JWT_HEADER}
-    prefix: ${JWT_PREFIX}
+    secret: ${JWT_SECRET:qwertyuiopasdfghjkl1234567890}
+    header: ${JWT_HEADER:root}
+    prefix: ${JWT_PREFIX:Secure}
 
     exp:
-      access: ${JWT_ACCESS}
-      refresh: ${JWT_REFRESH}
+      access: ${JWT_ACCESS:1480849147370}
+      refresh: ${JWT_REFRESH:1480849147370}
 
-jpa:
+  jpa:
     hibernate:
       ddl-auto: update
-    database: mysql
-    generate-ddl: true
-    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+    database-platform: org.hibernate.dialect.MySQL5Dialect
 
   datasource:
-    url: ${MYSQL_URL}
-    username: ${MYSQL_USER}
-    password: ${MYSQL_PWD}
+    url:  jdbc:mysql://localhost:3306/unknown?serverTimezone=UTC&characterEncoding=UTF-8
+    username: root
+    password: 2513
     driver-class-name: com.mysql.cj.jdbc.Driver
 
 
   redis:
-    port: ${REDIS_PORT}
-    host: ${REDIS_HOST}
+    host: ${REDIS_HOST:localhost}
+    port: ${REDIS_PORT:6379}
 
-  logging:
-    file:
-      path: ${PATH/}
-      max-size: 500MB
-      max-history: 10
-    level:
-      root: info
-      me.hong.kotlinspring: debug
 
   mail:
-    host: ${MAIL_HOST}
-    port: ${MAIL_PORT}
-    username: ${MAIL_USERNAME}
-    password: ${MAIL_PASSWORD}
+    host: smtp.gmail.com
+    port: 587
+    username: eogus_2513@dsm.hs.kr
+    password: eogus@2513
     properties:
       mail:
         smtp:

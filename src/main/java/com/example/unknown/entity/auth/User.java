@@ -14,14 +14,14 @@ import java.util.Collections;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Entity(name = "unknown-user")
+@Entity(name = "unknown_user")
 public class User implements UserDetails {
 
     @Id
     @Column()
     private String email;
 
-    @Column(unique = false)
+    @Column(nullable = false)
     private String password;
 
     @Column(length = 20)

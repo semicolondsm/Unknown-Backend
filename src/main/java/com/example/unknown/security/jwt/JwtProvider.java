@@ -19,19 +19,19 @@ import java.util.Date;
 @RequiredArgsConstructor
 public class JwtProvider {
 
-    @Value("${JWT_SECRET}")
+    @Value("${spring.jwt.secret}")
     private String secret;
 
-    @Value("${JWT_HEADER}")
+    @Value("${spring.jwt.header}")
     private String header;
 
-    @Value("${JWT_PREFIX}")
+    @Value("${spring.jwt.prefix}")
     private String prefix;
 
-    @Value("${JWT_ACCESS}")
+    @Value("${spring.jwt.exp.access}")
     private Long accessTokenExp;
 
-    @Value("${JWT_REFRESH}")
+    @Value("${spring.jwt.exp.refresh}")
     private Long refreshTokenExp;
 
 

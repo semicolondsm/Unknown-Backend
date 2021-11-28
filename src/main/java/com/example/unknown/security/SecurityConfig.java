@@ -1,14 +1,15 @@
 package com.example.unknown.security;
 
 import com.example.unknown.security.jwt.JwtProvider;
-import com.example.unknown.security.logging.RequestLogger;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
@@ -16,7 +17,6 @@ import org.springframework.security.web.access.intercept.FilterSecurityIntercept
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final JwtProvider jwtProvider;
-    private final RequestLogger requestLogger;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -28,8 +28,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .anyRequest().authenticated()
-                .and().apply(new FilterConfig(jwtProvider))
-                .and().addFilterAfter(requestLogger, FilterSecurityInterceptor.class);
+                .and().apply(new FilterConfig(jwtProvider));
 
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 }
