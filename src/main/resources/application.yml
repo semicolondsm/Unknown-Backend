@@ -12,7 +12,7 @@ spring:
       access: ${JWT_ACCESS}
       refresh: ${JWT_REFRESH}
 
-  jpa:
+jpa:
     hibernate:
       ddl-auto: update
     database: mysql
@@ -50,4 +50,4 @@ spring:
         smtp:
           auth: true
           starttls:
-            enable: true
+           enable: true
