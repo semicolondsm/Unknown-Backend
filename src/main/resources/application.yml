@@ -4,13 +4,13 @@ server:
 spring:
 
   jwt:
-    secret: ${JWT_SECRET:qwertyuiopasdfghjkl1234567890}
-    header: ${JWT_HEADER:root}
-    prefix: ${JWT_PREFIX:Secure}
+    secret: ${JWT_SECRET}
+    header: ${JWT_HEADER}
+    prefix: ${JWT_PREFIX}
 
     exp:
-      access: ${JWT_ACCESS:1480849147370}
-      refresh: ${JWT_REFRESH:1480849147370}
+      access: ${JWT_ACCESS}
+      refresh: ${JWT_REFRESH}
 
   jpa:
     hibernate:
@@ -22,22 +22,22 @@ spring:
     database-platform: org.hibernate.dialect.MySQL5Dialect
 
   datasource:
-    url:  jdbc:mysql://localhost:3306/unknown?serverTimezone=UTC&characterEncoding=UTF-8
-    username: root
-    password: 2513
+    url:  ${MYSQL_URL}
+    username: ${MYSQL_USERNAME}
+    password: ${MYSQL_PWD}
     driver-class-name: com.mysql.cj.jdbc.Driver
 
 
   redis:
-    host: ${REDIS_HOST:localhost}
-    port: ${REDIS_PORT:6379}
+    host: ${REDIS_HOST}
+    port: ${REDIS_PORT}
 
 
   mail:
-    host: smtp.gmail.com
-    port: 587
-    username: eogus_2513@dsm.hs.kr
-    password: eogus@2513
+    host: ${MAIL_HOST}
+    port: ${MAIL_PORT}
+    username: ${MAIL_USERNAME}
+    password: ${MAIL_PASSWORD}
     properties:
       mail:
         smtp:
