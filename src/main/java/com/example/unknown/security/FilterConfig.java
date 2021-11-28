@@ -1,4 +1,4 @@
-package com.example.unknown.config;
+package com.example.unknown.security;
 
 import com.example.unknown.security.jwt.Auth.TokenFilter;
 import com.example.unknown.security.jwt.JwtProvider;
