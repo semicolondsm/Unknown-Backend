@@ -2,8 +2,8 @@ server:
   port: 9999
 
 spring:
-  jwt:
 
+  jwt:
     secret: ${JWT_SECRET}
     header: ${JWT_HEADER}
     prefix: ${JWT_PREFIX}
@@ -11,25 +11,5 @@ spring:
     exp:
       access: ${JWT_ACCESS}
       refresh: ${JWT_REFRESH}
-
-  jpa:
-    hibernate:
-      ddl-auto: update
-    database: mysql
-    generate-ddl: true
-    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
-    show-sql: true
-
-  datasource:
-    url: ${MYSQL_URL}
-    username: ${MYSQL_USER}
-    password: ${MYSQL_PWD}
-    driver-class-name: com.mysql.cj.jdbc.Driver
-
-
-  redis:
-    port: ${REDIS_PORT}
-    host: ${REDIS_HOST}
-
 
 
