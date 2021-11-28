@@ -65,7 +65,6 @@ public class UserServiceImpl implements UserService {
         return new TokenResponse(access_token, refresh_token);
     }
 
-    @Override
     public void verifyPassword(VerifyCodeRequest request) {
 
         Redis redis = redisRepository.findById(request.getEmail())
