@@ -1,7 +1,10 @@
 package com.example.unknown.entity.post;
 
 import com.example.unknown.entity.BaseTimeEntity;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
@@ -12,10 +15,9 @@ public class Post extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(nullable = false)
-    private Integer id;
+    private Long id;
 
-    @Column(length = 30)
+    @Column(length = 50)
     private String title;
 
     @Lob
@@ -23,7 +25,7 @@ public class Post extends BaseTimeEntity {
     private String description;
 
     @Builder
-    public Post (Integer id, String title, String description) {
+    public Post(Long id, String title, String description) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -38,7 +40,5 @@ public class Post extends BaseTimeEntity {
         this.description = description;
         return this;
     }
-
-
-
+    
 }
