@@ -1,3 +1,6 @@
+server:
+  port: 9999
+
 spring:
 
   jwt:
@@ -9,14 +12,4 @@ spring:
       access: ${JWT_ACCESS}
       refresh: ${JWT_REFRESH}
 
-  mail:
-    host: ${MAIL_HOST} #smtp.gmail.com
-    port: ${MAIL_PORT} #587
-    username: ${MAIL_USERNAME}
-    password: ${MAIL_PASSWORD}
-    properties:
-      mail:
-        smtp:
-          auth: true
-          starttls:
-            enable: true
+
