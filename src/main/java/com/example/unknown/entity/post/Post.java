@@ -7,7 +7,7 @@ import javax.persistence.*;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Entity(name = "unknown-content")
+@Entity(name = "unknown_content")
 public class Post extends BaseTimeEntity {
 
     @Id

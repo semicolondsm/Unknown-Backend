@@ -14,7 +14,7 @@ import java.util.Collections;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Entity(name = "unknown-admin")
+@Entity(name = "unknown_admin")
 public class Admin implements UserDetails {
 
     @Id

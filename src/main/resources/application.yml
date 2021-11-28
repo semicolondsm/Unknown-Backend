@@ -12,33 +12,26 @@ spring:
       access: ${JWT_ACCESS}
       refresh: ${JWT_REFRESH}
 
-jpa:
+  jpa:
     hibernate:
       ddl-auto: update
-    database: mysql
-    generate-ddl: true
-    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+    database-platform: org.hibernate.dialect.MySQL5Dialect
 
   datasource:
-    url: ${MYSQL_URL}
-    username: ${MYSQL_USER}
+    url:  ${MYSQL_URL}
+    username: ${MYSQL_USERNAME}
     password: ${MYSQL_PWD}
     driver-class-name: com.mysql.cj.jdbc.Driver
 
 
   redis:
-    port: ${REDIS_PORT}
     host: ${REDIS_HOST}
+    port: ${REDIS_PORT}
 
-  logging:
-    file:
-      path: ${PATH/}
-      max-size: 500MB
-      max-history: 10
-    level:
-      root: info
-      me.hong.kotlinspring: debug
 
   mail:
     host: ${MAIL_HOST}
