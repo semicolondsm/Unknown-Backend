@@ -25,11 +25,11 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final AuthCodeRepository authCodeRepository;
     private final PasswordEncoder passwordEncoder;
-    private final JwtTokenProvider jwtProvider;
+    private final JwtTokenProvider jwtTokenProvider;
 
     @Override
     public void signUp(UserRequest request) {
-        if (userRepository.findByEmail(request.getEmail()).isPresent()) {
+        if (userRepository.findById(request.getEmail()).isPresent()) {
             throw UserExistsException.EXCEPTION;
         }
 
@@ -49,7 +49,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public TokenResponse login(UserRequest request) {
-        User user = userRepository.findByEmail(request.getEmail())
+        User user = userRepository.findById(request.getEmail())
                 .orElseThrow(() -> UserNotExistsException.EXCEPTION);
 
         if (!user.getRole().equals(Role.ROLE_USER)) {
@@ -60,7 +60,7 @@ public class UserServiceImpl implements UserService {
             throw InvalidPasswordException.EXCEPTION;
         }
 
-        return jwtProvider.generateToken(request.getEmail());
+        return jwtTokenProvider.generateToken(request.getEmail());
     }
 
     public void verifyPassword(VerifyCodeRequest request) {
@@ -90,7 +90,7 @@ public class UserServiceImpl implements UserService {
             throw InvalidCodeException.EXCEPTION;
         }
 
-        userRepository.findByEmail(request.getEmail())
+        userRepository.findById(request.getEmail())
                 .map(user -> user.updatePassword(passwordEncoder.encode(request.getNewPassword())))
                 .orElseThrow(() -> UserNotExistsException.EXCEPTION);
     }
