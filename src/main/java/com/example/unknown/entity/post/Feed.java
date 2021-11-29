@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity(name = "unknown_content")
-public class Post extends BaseTimeEntity {
+public class Feed extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,21 +24,26 @@ public class Post extends BaseTimeEntity {
     @Column(nullable = false, length = 60000)
     private String description;
 
+
+    @Column(nullable = false)
+    private String author;
+
     @Builder
-    public Post(Long id, String title, String description) {
+    public Feed(Long id, String title, String description, String author) {
         this.id = id;
         this.title = title;
         this.description = description;
+        this.author = author;
     }
 
-    public Post changeTitle(String title) {
+    public Feed changeTitle(String title) {
         this.title = title;
         return this;
     }
 
-    public Post changeDescription(String description) {
+    public Feed changeDescription(String description) {
         this.description = description;
         return this;
     }
-    
+
 }

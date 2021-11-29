@@ -14,4 +14,7 @@ public class FeedRequest {
 
     @Lob
     private String description;
+
+    @NotEmpty
+    private String author;
 }
