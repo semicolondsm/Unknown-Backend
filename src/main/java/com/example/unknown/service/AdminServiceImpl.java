@@ -14,8 +14,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-@Service
 @RequiredArgsConstructor
+@Service
 public class AdminServiceImpl implements AdminService {
 
     private final AdminRepository adminRepository;
@@ -49,9 +49,6 @@ public class AdminServiceImpl implements AdminService {
             throw InvalidPasswordException.EXCEPTION;
         }
 
-        String access_token = jwtProvider.generateAccessToken(request.getId());
-        String refresh_token = jwtProvider.generateRefreshToken(request.getId());
-
-        return new TokenResponse(access_token, refresh_token);
+        return jwtProvider.generateToken(request.getId());
     }
 }

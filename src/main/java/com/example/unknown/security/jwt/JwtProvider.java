@@ -1,11 +1,11 @@
 package com.example.unknown.security.jwt;
 
+import com.example.unknown.dto.response.TokenResponse;
 import com.example.unknown.security.jwt.Auth.AuthUserDetailsService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,23 +19,7 @@ import java.util.Date;
 @RequiredArgsConstructor
 public class JwtProvider {
 
-    @Value("${spring.jwt.secret}")
-    private String secret;
-
-    @Value("${spring.jwt.header}")
-    private String header;
-
-    @Value("${spring.jwt.prefix}")
-    private String prefix;
-
-    @Value("${spring.jwt.exp.access}")
-    private Long accessTokenExp;
-
-    @Value("${spring.jwt.exp.refresh}")
-    private Long refreshTokenExp;
-
-
-
+    private final JwtProperties jwtProperties;
     private final AuthUserDetailsService authUserDetailsService;
 
     public String generateAccessToken(String email) {
@@ -45,7 +29,7 @@ public class JwtProvider {
                 .setSubject(email)
                 .claim("type", "access")
                 .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + accessTokenExp * 1000))
+                .setExpiration(new Date(System.currentTimeMillis() + jwtProperties.getAccess() * 1000))
                 .compact();
     }
 
@@ -56,8 +40,15 @@ public class JwtProvider {
                 .setSubject(email)
                 .claim("type", "refresh")
                 .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + refreshTokenExp * 1000))
+                .setExpiration(new Date(System.currentTimeMillis() + jwtProperties.getRefresh() * 1000))
                 .compact();
+    }
+
+    public TokenResponse generateToken(String id) {
+        String accessToken = generateAccessToken(id);
+        String refreshToken = generateRefreshToken(id);
+
+        return new TokenResponse(accessToken, refreshToken);
     }
 
     public boolean isRefreshToken(String token) {
@@ -65,8 +56,8 @@ public class JwtProvider {
     }
 
     public String resolveToken(HttpServletRequest request) {
-        String bearer = request.getHeader(header);
-        if(bearer != null && bearer.length() > 7 && bearer.startsWith(prefix)) {
+        String bearer = request.getHeader(jwtProperties.getHeader());
+        if (bearer != null && bearer.length() > 7 && bearer.startsWith(jwtProperties.getPrefix())) {
             return bearer.substring(7);
         }
         return null;
@@ -93,7 +84,7 @@ public class JwtProvider {
     }
 
     private String getSecretKey() {
-        return Base64.getEncoder().encodeToString(secret.getBytes());
+        return Base64.getEncoder().encodeToString(jwtProperties.getSecret().getBytes());
     }
 
 }

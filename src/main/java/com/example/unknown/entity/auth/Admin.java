@@ -1,9 +1,6 @@
 package com.example.unknown.entity.auth;
 
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,6 +10,8 @@ import java.util.Collection;
 import java.util.Collections;
 
 @Getter
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity(name = "unknown_admin")
 public class Admin implements UserDetails {
@@ -27,13 +26,6 @@ public class Admin implements UserDetails {
     @Column(length = 20)
     @Enumerated(EnumType.STRING)
     private Role role;
-
-    @Builder
-    private Admin(String id, String password, Role role) {
-        this.id = id;
-        this.password = password;
-        this.role = role;
-    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

@@ -15,8 +15,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-@Service
 @RequiredArgsConstructor
+@Service
 public class UserServiceImpl implements UserService {
 
     private static final Integer REDIS_TTL = 3 * 60;
@@ -59,10 +59,7 @@ public class UserServiceImpl implements UserService {
             throw InvalidPasswordException.EXCEPTION;
         }
 
-        String access_token = jwtProvider.generateAccessToken(request.getEmail());
-        String refresh_token = jwtProvider.generateRefreshToken(request.getEmail());
-
-        return new TokenResponse(access_token, refresh_token);
+        return jwtProvider.generateToken(request.getEmail());
     }
 
     public void verifyPassword(VerifyCodeRequest request) {

@@ -1,11 +1,14 @@
 package com.example.unknown.entity.post;
 
 import com.example.unknown.entity.BaseTimeEntity;
+import com.example.unknown.entity.auth.User;
 import lombok.*;
 
 import javax.persistence.*;
 
 @Getter
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity(name = "unknown_content")
 public class Post extends BaseTimeEntity {
@@ -22,12 +25,9 @@ public class Post extends BaseTimeEntity {
     @Column(nullable = false, length = 60000)
     private String description;
 
-    @Builder
-    public Post (Integer id, String title, String description) {
-        this.id = id;
-        this.title = title;
-        this.description = description;
-    }
+    @ManyToOne()
+    @JoinColumn(name = "user_id")
+    private User user;
 
     public Post changeTitle(String title) {
         this.title = title;
@@ -38,7 +38,6 @@ public class Post extends BaseTimeEntity {
         this.description = description;
         return this;
     }
-
 
 
 }

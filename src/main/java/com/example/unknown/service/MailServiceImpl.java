@@ -18,8 +18,8 @@ import javax.mail.internet.MimeMessage;
 import java.util.Optional;
 import java.util.Random;
 
-@Service
 @RequiredArgsConstructor
+@Service
 public class MailServiceImpl implements MailService {
 
     private static final Integer CODE_LENGTH = 6;
