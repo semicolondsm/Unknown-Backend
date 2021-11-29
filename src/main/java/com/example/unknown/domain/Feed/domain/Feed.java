@@ -1,4 +1,4 @@
-package com.example.unknown.domain.Feed.domain.types;
+package com.example.unknown.domain.Feed.domain;
 
 import com.example.unknown.global.domain.repository.BaseTimeEntity;
 import com.example.unknown.domain.User.domain.User;
@@ -18,7 +18,7 @@ public class Feed extends BaseTimeEntity {
     @Column(nullable = false)
     private Integer id;
 
-    @Column(length = 30)
+    @Column(length = 50)
     private String title;
 
     @Lob
