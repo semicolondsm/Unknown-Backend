@@ -1,5 +1,7 @@
 package com.example.unknown.global.error;
 
+import com.example.unknown.global.error.exception.CustomException;
+import com.example.unknown.global.error.exception.ErrorCode;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
