@@ -1,4 +1,4 @@
-package com.example.unknown.domain.User.presentation.dto.request;
+package com.example.unknown.domain.Mail.presentation.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
