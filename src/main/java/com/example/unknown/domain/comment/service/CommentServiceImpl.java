@@ -4,7 +4,7 @@ import com.example.unknown.domain.User.domain.User;
 import com.example.unknown.domain.User.facade.UserFacade;
 import com.example.unknown.domain.comment.domain.Comment;
 import com.example.unknown.domain.comment.domain.repository.CommentRepository;
-import com.example.unknown.domain.comment.presentation.dto.CommentRequest;
+import com.example.unknown.domain.comment.presentation.dto.request.CommentRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

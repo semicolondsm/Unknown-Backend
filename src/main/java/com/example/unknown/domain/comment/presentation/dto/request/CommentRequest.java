@@ -1,4 +1,4 @@
-package com.example.unknown.domain.comment.presentation.dto;
+package com.example.unknown.domain.comment.presentation.dto.request;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
