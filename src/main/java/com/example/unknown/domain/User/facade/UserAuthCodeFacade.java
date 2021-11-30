@@ -1,7 +1,7 @@
 package com.example.unknown.domain.User.facade;
 
-import com.example.unknown.domain.User.domain.AuthCode;
-import com.example.unknown.domain.User.domain.repository.AuthCodeRepository;
+import com.example.unknown.domain.Mail.domain.AuthCode;
+import com.example.unknown.domain.Mail.domain.repository.AuthCodeRepository;
 import com.example.unknown.domain.User.exception.UserNotVerificationException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

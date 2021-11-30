@@ -1,7 +1,7 @@
 package com.example.unknown.domain.Mail.presentation;
 
-import com.example.unknown.domain.Mail.presentation.dto.request.SendEmailRequest;
 import com.example.unknown.domain.Admin.presentation.dto.request.VerifyCodeRequest;
+import com.example.unknown.domain.Mail.presentation.dto.request.SendEmailRequest;
 import com.example.unknown.domain.Mail.service.MailService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -24,4 +24,5 @@ public class MailController {
     public void verifyEmail(@RequestBody @Valid VerifyCodeRequest request) {
         mailService.verifyEmail(request);
     }
+
 }

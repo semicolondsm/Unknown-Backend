@@ -1,12 +1,12 @@
 package com.example.unknown.domain.Mail.service;
 
 import com.example.unknown.domain.Admin.presentation.dto.request.VerifyCodeRequest;
+import com.example.unknown.domain.Mail.domain.AuthCode;
+import com.example.unknown.domain.Mail.domain.repository.AuthCodeRepository;
 import com.example.unknown.domain.Mail.exception.SendMailFailedException;
 import com.example.unknown.domain.Mail.presentation.dto.request.SendEmailRequest;
-import com.example.unknown.domain.User.domain.AuthCode;
-import com.example.unknown.domain.User.domain.repository.AuthCodeRepository;
+import com.example.unknown.domain.User.facade.UserAuthCodeFacade;
 import com.example.unknown.global.exception.InvalidCodeException;
-import com.example.unknown.global.exception.UserNotExistsException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.scheduling.annotation.Async;
@@ -28,6 +28,7 @@ public class MailServiceImpl implements MailService {
     private static final StringBuilder key = new StringBuilder();
     private static final Random random = new Random();
     public static final String createKey = createKey();
+    private final UserAuthCodeFacade userAuthCodeFacade;
     private final JavaMailSender mailSender;
     private final AuthCodeRepository authCodeRepository;
 
@@ -44,7 +45,7 @@ public class MailServiceImpl implements MailService {
 
             authCodeRepository.findById(request.getEmail())
                     .or(() -> Optional.of(new AuthCode(request.getEmail(), code, null, REDIS_TTL)))
-                    .ifPresent(verifyCode -> authCodeRepository.save(verifyCode.updateAuthCode(request.getEmail(), code, REDIS_TTL)));
+                    .ifPresent(verifyCode -> authCodeRepository.save(verifyCode.updateAuthCode(request.getEmail(), code, "", REDIS_TTL)));
 
             sendMail(mail);
         } catch (MessagingException e) {
@@ -56,8 +57,7 @@ public class MailServiceImpl implements MailService {
     @Override
     public void verifyEmail(VerifyCodeRequest request) {
 
-        AuthCode authCode = authCodeRepository.findById(request.getEmail())
-                .orElseThrow(() -> UserNotExistsException.EXCEPTION);
+        AuthCode authCode = userAuthCodeFacade.getAuthCodeById(request.getEmail());
 
         if (!authCode.getCode().equals(request.getCode())) {
             throw InvalidCodeException.EXCEPTION;
@@ -65,7 +65,7 @@ public class MailServiceImpl implements MailService {
 
         authCodeRepository.save(AuthCode.builder()
                 .email(request.getEmail())
-                .code(null)
+                .code("")
                 .message("Email Verify")
                 .ttl(REDIS_TTL)
                 .build());
