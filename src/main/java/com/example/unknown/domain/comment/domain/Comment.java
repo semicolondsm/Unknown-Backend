@@ -8,11 +8,16 @@ import javax.persistence.*;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Entity(name = "unknown-comment")
+@Entity(name = "unknown_comment")
 public class Comment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
+    @Column(columnDefinition = "TEXT")
+    private String comment;
+
     @Column(name = "comment_id")
         private Integer id;
 
