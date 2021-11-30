@@ -1,4 +1,4 @@
-package com.example.unknown.domain.Feed.domain.types;
+package com.example.unknown.domain.Feed.domain;
 
 import com.example.unknown.global.domain.repository.BaseTimeEntity;
 import com.example.unknown.domain.User.domain.User;

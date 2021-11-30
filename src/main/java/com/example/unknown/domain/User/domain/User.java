@@ -1,7 +1,7 @@
 package com.example.unknown.domain.User.domain;
 
 import com.example.unknown.domain.User.domain.types.Role;
-import com.example.unknown.domain.Feed.domain.types.Feed;
+import com.example.unknown.domain.Feed.domain.Feed;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
