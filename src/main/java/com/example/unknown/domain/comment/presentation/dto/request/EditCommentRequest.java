@@ -10,7 +10,6 @@ import lombok.NoArgsConstructor;
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class EditCommentRequest {
 
-    private Long commentId;
-    private String comment;
+    private Integer commentId;
 
 }
