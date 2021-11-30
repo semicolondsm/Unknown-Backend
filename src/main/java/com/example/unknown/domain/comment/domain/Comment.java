@@ -18,12 +18,6 @@ public class Comment {
     @Column(columnDefinition = "TEXT")
     private String comment;
 
-    @Column(name = "comment_id")
-        private Integer id;
-
-    @Column(columnDefinition="TEXT")
-    private String comment;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
