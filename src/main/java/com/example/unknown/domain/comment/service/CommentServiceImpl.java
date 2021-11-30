@@ -4,20 +4,22 @@ import com.example.unknown.domain.User.domain.User;
 import com.example.unknown.domain.User.facade.UserFacade;
 import com.example.unknown.domain.comment.domain.Comment;
 import com.example.unknown.domain.comment.domain.repository.CommentRepository;
+import com.example.unknown.domain.comment.exception.CommentNotFoundException;
 import com.example.unknown.domain.comment.presentation.dto.request.CommentRequest;
-import com.example.unknown.domain.comment.presentation.dto.response.CommentResponse;
+import com.example.unknown.domain.comment.presentation.dto.request.EditCommentRequest;
+import com.example.unknown.domain.comment.presentation.dto.request.RemoveCommentRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class CommentServiceImpl implements CommentService{
+public class CommentServiceImpl implements CommentService {
 
     private final CommentRepository commentRepository;
     private final UserFacade userFacade;
 
     @Override
-    public CommentResponse postComment(CommentRequest request) {
+    public void postComment(CommentRequest request) {
 
         User user = userFacade.getUserById(request.getComment());
 
@@ -28,8 +30,34 @@ public class CommentServiceImpl implements CommentService{
                         .build()
         );
 
-        return null;
     }
+
+    @Override
+    public void editComment(EditCommentRequest request) {
+
+        User user = userFacade.getUserById(request.getComment());
+
+        Comment comment = commentRepository.findById(Long.valueOf(request.getCommentId()))
+                .orElseThrow(() -> CommentNotFoundException.EXCEPTION);
+
+        comment.editContent(request.getComment());
+
+        commentRepository.save(comment);
+    }
+
+    @Override
+    public void removeComment(RemoveCommentRequest request) {
+
+        User user = userFacade.getUserById(request.getComment());
+
+        Comment comment = commentRepository.findById(Long.valueOf(request.getComment_id()))
+                .orElseThrow(() -> CommentNotFoundException.EXCEPTION);
+
+        commentRepository.delete(comment);
+
+    }
+
+    
 
 
 
