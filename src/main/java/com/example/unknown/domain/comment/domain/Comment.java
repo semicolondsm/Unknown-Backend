@@ -13,7 +13,7 @@ public class Comment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long commentId;
 
     @Column(columnDefinition = "TEXT")
     private String comment;
@@ -23,7 +23,8 @@ public class Comment {
     private User user;
 
     @Builder
-    public Comment(String content, User user) {
+    public Comment(Long commentId, String content, User user) {
+        this.commentId = commentId;
         this.user = user;
         this.comment = content;
     }
