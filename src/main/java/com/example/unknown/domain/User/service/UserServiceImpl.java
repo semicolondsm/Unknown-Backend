@@ -1,9 +1,9 @@
 package com.example.unknown.domain.User.service;
 
 import com.example.unknown.domain.Admin.presentation.dto.request.VerifyCodeRequest;
-import com.example.unknown.domain.Mail.domain.AuthCode;
-import com.example.unknown.domain.Mail.domain.repository.AuthCodeRepository;
+import com.example.unknown.domain.User.domain.AuthCode;
 import com.example.unknown.domain.User.domain.User;
+import com.example.unknown.domain.User.domain.repository.AuthCodeRepository;
 import com.example.unknown.domain.User.domain.repository.UserRepository;
 import com.example.unknown.domain.User.domain.types.Role;
 import com.example.unknown.domain.User.facade.UserAuthCodeFacade;
