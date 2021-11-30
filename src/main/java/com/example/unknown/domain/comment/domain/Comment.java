@@ -13,15 +13,9 @@ public class Comment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long commentId;
 
     @Column(columnDefinition = "TEXT")
-    private String comment;
-
-    @Column(name = "comment_id")
-        private Integer id;
-
-    @Column(columnDefinition="TEXT")
     private String comment;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -29,7 +23,8 @@ public class Comment {
     private User user;
 
     @Builder
-    public Comment(String content, User user) {
+    public Comment(Long commentId, String content, User user) {
+        this.commentId = commentId;
         this.user = user;
         this.comment = content;
     }
