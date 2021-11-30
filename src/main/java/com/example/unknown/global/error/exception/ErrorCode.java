@@ -16,6 +16,7 @@ public enum ErrorCode {
     INVALID_ROLE(400, "Invalid Role"),
     USER_NOT_EXISTS(404, "User Not Exists"),
     USER_EXISTS(400, "User Exists"),
+    COMMENT_NOT_FOUND(404,"Comment Not Found")
     ;
 
     private int statusCode;
