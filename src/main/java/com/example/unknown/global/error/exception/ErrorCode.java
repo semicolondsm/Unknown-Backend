@@ -7,6 +7,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum ErrorCode {
 
+    ADMIN_EXISTS(400, "Admin Exists"),
     USER_NOT_VERIFICATION(403, "User Not Verification"),
     INVALID_CODE(400, "Invalid Code"),
     SEND_FAILED_MAIL(400, "Send Message Failed"),
