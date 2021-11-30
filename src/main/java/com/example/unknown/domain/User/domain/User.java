@@ -1,7 +1,6 @@
 package com.example.unknown.domain.User.domain;
 
 import com.example.unknown.domain.User.domain.types.Role;
-import com.example.unknown.domain.Feed.domain.Feed;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -10,7 +9,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
 
 @Getter
 @Builder
@@ -20,7 +18,7 @@ import java.util.List;
 public class User implements UserDetails {
 
     @Id
-    @Column()
+    @Column(length = 64)
     private String email;
 
     @Column(nullable = false)
