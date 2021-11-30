@@ -36,7 +36,7 @@ public class UserServiceImpl implements UserService {
         AuthCode authCode = authCodeRepository.findById(request.getEmail())
                 .orElseThrow(() -> UserNotVerificationException.EXCEPTION);
 
-        if (!authCode.getCode().equals("Email Verify")) {
+        if (!authCode.getMessage().equals("Email Verify")) {
             throw InvalidCodeException.EXCEPTION;
         }
 
@@ -75,7 +75,7 @@ public class UserServiceImpl implements UserService {
         authCodeRepository.save(AuthCode.builder()
                 .email(request.getEmail())
                 .code(null)
-                .message("Email Verify")
+                .message("Password Verify")
                 .ttl(REDIS_TTL)
                 .build());
     }
@@ -86,7 +86,7 @@ public class UserServiceImpl implements UserService {
         AuthCode authCode = authCodeRepository.findById(request.getEmail())
                 .orElseThrow(() -> UserNotVerificationException.EXCEPTION);
 
-        if (!authCode.getCode().equals("Password Verify")) {
+        if (!authCode.getMessage().equals("Password Verify")) {
             throw InvalidCodeException.EXCEPTION;
         }
 

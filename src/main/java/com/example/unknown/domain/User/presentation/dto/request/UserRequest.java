@@ -11,7 +11,7 @@ import javax.validation.constraints.NotBlank;
 public class UserRequest {
 
     @NotBlank
-    @Length(min = 6, max = 15)
+    @Length(min = 6, max = 36)
     private String email;
 
     @NotBlank
