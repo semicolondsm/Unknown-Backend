@@ -29,12 +29,12 @@ public class FeedController {
     return feedService.getFeed();
     }
 
-    @PutMapping("/updateTitle")
+    @PutMapping("/update_title")
     public void updateTitle(@RequestBody @Valid UpdateTitleRequest request) {
         feedService.updateTitle(request);
     }
 
-    @PutMapping("/updateDes")
+    @PutMapping("/update_description")
     public void updateDescription(@RequestBody @Valid UpdateDescriptionRequest request) {
         feedService.updateDescription(request);
     }
