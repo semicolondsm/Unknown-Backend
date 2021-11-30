@@ -1,4 +1,4 @@
-package com.example.unknown.domain.Feed.domain.repository;
+package com.example.unknown.domain.Admin.domain.repository;
 
 
 import com.example.unknown.domain.Admin.domain.Admin;
