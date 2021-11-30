@@ -1,13 +1,13 @@
 package com.example.unknown.domain.Admin.service;
 
+import com.example.unknown.domain.Admin.domain.Admin;
+import com.example.unknown.domain.Admin.exception.AdminExistsException;
+import com.example.unknown.domain.Admin.facade.AdminFacade;
 import com.example.unknown.domain.Admin.presentation.dto.request.AdminRequest;
 import com.example.unknown.domain.Feed.domain.repository.AdminRepository;
-import com.example.unknown.domain.Admin.domain.Admin;
 import com.example.unknown.domain.User.domain.types.Role;
 import com.example.unknown.global.exception.InvalidPasswordException;
 import com.example.unknown.global.exception.InvalidRoleException;
-import com.example.unknown.global.exception.UserExistsException;
-import com.example.unknown.global.exception.UserNotExistsException;
 import com.example.unknown.global.security.jwt.JwtTokenProvider;
 import com.example.unknown.global.utils.token.dto.TokenResponse;
 import lombok.RequiredArgsConstructor;
@@ -18,14 +18,15 @@ import org.springframework.stereotype.Service;
 @Service
 public class AdminServiceImpl implements AdminService {
 
+    private final AdminFacade adminFacade;
     private final AdminRepository adminRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtTokenProvider jwtTokenProvider;
 
     @Override
     public void signUp(AdminRequest request) {
-        if (adminRepository.findById(request.getId()).isPresent()) {
-            throw UserExistsException.EXCEPTION;
+        if (adminFacade.isAlreadyExists(request.getId())) {
+            throw AdminExistsException.EXCEPTION;
         }
 
         adminRepository.save(Admin.builder()
@@ -38,8 +39,7 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public TokenResponse login(AdminRequest request) {
 
-        Admin admin = adminRepository.findById(request.getId())
-                .orElseThrow(() -> UserNotExistsException.EXCEPTION);
+        Admin admin = adminFacade.getUserById(request.getId());
 
         if (!admin.getRole().equals(Role.ROLE_ADMIN)) {
             throw InvalidRoleException.EXCEPTION;
