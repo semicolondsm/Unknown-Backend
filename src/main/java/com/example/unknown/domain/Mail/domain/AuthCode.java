@@ -1,4 +1,4 @@
-package com.example.unknown.domain.User.domain;
+package com.example.unknown.domain.Mail.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -8,6 +8,7 @@ import org.springframework.data.redis.core.RedisHash;
 import org.springframework.data.redis.core.TimeToLive;
 
 @Getter
+@Builder
 @AllArgsConstructor
 @RedisHash
 public class AuthCode {
@@ -22,17 +23,10 @@ public class AuthCode {
     @TimeToLive
     private long ttl;
 
-    @Builder
-    public AuthCode(String email, String code, String message, Integer ttl) {
+    public AuthCode updateAuthCode(String email, String code, String message, long ttl) {
         this.email = email;
         this.code = code;
         this.message = message;
-        this.ttl = ttl;
-    }
-
-    public AuthCode updateAuthCode(String email ,String code, long ttl) {
-        this.email = email;
-        this.code = code;
         this.ttl = ttl;
         return this;
     }
