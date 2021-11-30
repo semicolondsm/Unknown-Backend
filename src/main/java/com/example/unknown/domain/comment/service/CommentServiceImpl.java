@@ -37,8 +37,7 @@ public class CommentServiceImpl implements CommentService {
 
         User user = userFacade.getUserById(request.getComment());
 
-        Comment comment = commentRepository.findById(Long.valueOf(request.getCommentId()))
-                .orElseThrow(() -> CommentNotFoundException.EXCEPTION);
+        Comment comment = getComment(request.getCommentId());
 
         comment.editContent(request.getComment());
 
@@ -50,14 +49,15 @@ public class CommentServiceImpl implements CommentService {
 
         User user = userFacade.getUserById(request.getComment());
 
-        Comment comment = commentRepository.findById(Long.valueOf(request.getComment_id()))
-                .orElseThrow(() -> CommentNotFoundException.EXCEPTION);
-
+        Comment comment = getComment(request.getComment_id());
         commentRepository.delete(comment);
 
     }
 
-    
+    private Comment getComment(Long commentId) {
+        return commentRepository.findById(commentId)
+                .orElseThrow(() -> CommentNotFoundException.EXCEPTION);
+    }
 
 
 
