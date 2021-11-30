@@ -10,8 +10,5 @@ import javax.validation.constraints.NotBlank;
 public class DeleteFeedRequest {
 
     @NotBlank
-    public String title;
-
-    @NotBlank
-    public String description;
+    private Long id;
 }

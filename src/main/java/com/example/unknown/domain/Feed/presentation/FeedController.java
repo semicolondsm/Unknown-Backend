@@ -25,8 +25,8 @@ public class FeedController {
     }
 
     @GetMapping("/get")
-    public List<Feed> get(){
-    return feedService.getFeed();
+    public List<Feed> get() {
+        return feedService.getFeed();
     }
 
     @PutMapping("/update_title")

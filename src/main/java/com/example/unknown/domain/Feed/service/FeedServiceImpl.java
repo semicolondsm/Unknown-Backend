@@ -53,8 +53,7 @@ public class FeedServiceImpl implements FeedService {
     @Override
     public void deleteFeed(DeleteFeedRequest request) {
         feedRepository.delete(Feed.builder()
-                .title(request.getTitle())
-                .description((request.getDescription()))
+                .id(request.getId())
                 .build());
     }
 }
