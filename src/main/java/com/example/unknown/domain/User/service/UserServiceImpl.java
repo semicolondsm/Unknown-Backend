@@ -6,7 +6,8 @@ import com.example.unknown.domain.User.domain.User;
 import com.example.unknown.domain.User.domain.repository.AuthCodeRepository;
 import com.example.unknown.domain.User.domain.repository.UserRepository;
 import com.example.unknown.domain.User.domain.types.Role;
-import com.example.unknown.domain.User.exception.UserNotVerificationException;
+import com.example.unknown.domain.User.facade.UserAuthCodeFacade;
+import com.example.unknown.domain.User.facade.UserFacade;
 import com.example.unknown.domain.User.presentation.dto.request.ChangePasswordRequest;
 import com.example.unknown.domain.User.presentation.dto.request.UserRequest;
 import com.example.unknown.global.exception.*;
@@ -22,6 +23,8 @@ public class UserServiceImpl implements UserService {
 
     private static final Integer REDIS_TTL = 5 * 60;
 
+    private final UserFacade userFacade;
+    private final UserAuthCodeFacade userAuthCodeFacade;
     private final UserRepository userRepository;
     private final AuthCodeRepository authCodeRepository;
     private final PasswordEncoder passwordEncoder;
@@ -29,12 +32,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void signUp(UserRequest request) {
-        if (userRepository.findById(request.getEmail()).isPresent()) {
+
+        if (userFacade.isAlreadyExists(request.getEmail())) {
             throw UserExistsException.EXCEPTION;
         }
 
-        AuthCode authCode = authCodeRepository.findById(request.getEmail())
-                .orElseThrow(() -> UserNotVerificationException.EXCEPTION);
+        AuthCode authCode = userAuthCodeFacade.getAuthCodeById(request.getEmail());
 
         if (!authCode.getMessage().equals("Email Verify")) {
             throw InvalidCodeException.EXCEPTION;
@@ -49,8 +52,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public TokenResponse login(UserRequest request) {
-        User user = userRepository.findById(request.getEmail())
-                .orElseThrow(() -> UserNotExistsException.EXCEPTION);
+        User user = userFacade.getUserById(request.getEmail());
 
         if (!user.getRole().equals(Role.ROLE_USER)) {
             throw InvalidRoleException.EXCEPTION;
@@ -65,8 +67,7 @@ public class UserServiceImpl implements UserService {
 
     public void verifyPassword(VerifyCodeRequest request) {
 
-        AuthCode authCode = authCodeRepository.findById(request.getEmail())
-                .orElseThrow(() -> UserNotVerificationException.EXCEPTION);
+        AuthCode authCode = userAuthCodeFacade.getAuthCodeById(request.getEmail());
 
         if (!authCode.getCode().equals(request.getCode())) {
             throw InvalidCodeException.EXCEPTION;
@@ -83,8 +84,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void changePassword(ChangePasswordRequest request) {
 
-        AuthCode authCode = authCodeRepository.findById(request.getEmail())
-                .orElseThrow(() -> UserNotVerificationException.EXCEPTION);
+        AuthCode authCode = userAuthCodeFacade.getAuthCodeById(request.getEmail());
 
         if (!authCode.getMessage().equals("Password Verify")) {
             throw InvalidCodeException.EXCEPTION;
