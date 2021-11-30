@@ -16,10 +16,6 @@ public class Comment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Lob
     @Column(columnDefinition = "TEXT")
     private String comment;
-
-
-
 }
