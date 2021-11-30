@@ -21,8 +21,7 @@ public class Feed extends BaseTimeEntity {
     @Column(length = 30)
     private String title;
 
-    @Lob
-    @Column(nullable = false, length = 60000)
+    @Column(columnDefinition="TEXT")
     private String description;
 
     @ManyToOne()
