@@ -18,7 +18,7 @@ import java.util.Collections;
 public class Admin implements UserDetails {
 
     @Id
-    @Column()
+    @Column(length = 40)
     private String id;
 
     @Column(nullable = false)
