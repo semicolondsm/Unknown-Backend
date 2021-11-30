@@ -43,8 +43,8 @@ public class MailServiceImpl implements MailService {
             mail.setText("6자리 인증코드 : " + code);
 
             authCodeRepository.findById(request.getEmail())
-                    .or(() -> Optional.of(new AuthCode(request.getEmail(), code, "", REDIS_TTL)))
-                    .ifPresent(verifyCode -> authCodeRepository.save(verifyCode.updateAuthCode(code, REDIS_TTL)));
+                    .or(() -> Optional.of(new AuthCode(request.getEmail(), code, null, REDIS_TTL)))
+                    .ifPresent(verifyCode -> authCodeRepository.save(verifyCode.updateAuthCode(request.getEmail(), code, REDIS_TTL)));
 
             sendMail(mail);
         } catch (MessagingException e) {
@@ -65,7 +65,8 @@ public class MailServiceImpl implements MailService {
 
         authCodeRepository.save(AuthCode.builder()
                 .email(request.getEmail())
-                .code("Email Verify")
+                .code(null)
+                .message("Email Verify")
                 .ttl(REDIS_TTL)
                 .build());
     }

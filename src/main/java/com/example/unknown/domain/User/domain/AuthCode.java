@@ -13,7 +13,7 @@ import org.springframework.data.redis.core.TimeToLive;
 public class AuthCode {
 
     @Id
-    private final String email;
+    private String email;
 
     private String code;
 
@@ -30,7 +30,8 @@ public class AuthCode {
         this.ttl = ttl;
     }
 
-    public AuthCode updateAuthCode(String code, long ttl) {
+    public AuthCode updateAuthCode(String email ,String code, long ttl) {
+        this.email = email;
         this.code = code;
         this.ttl = ttl;
         return this;
