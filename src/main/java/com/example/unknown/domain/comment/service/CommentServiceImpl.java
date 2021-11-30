@@ -5,6 +5,7 @@ import com.example.unknown.domain.User.facade.UserFacade;
 import com.example.unknown.domain.comment.domain.Comment;
 import com.example.unknown.domain.comment.domain.repository.CommentRepository;
 import com.example.unknown.domain.comment.presentation.dto.request.CommentRequest;
+import com.example.unknown.domain.comment.presentation.dto.response.CommentResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +17,7 @@ public class CommentServiceImpl implements CommentService{
     private final UserFacade userFacade;
 
     @Override
-    public void postComment(CommentRequest request) {
+    public CommentResponse postComment(CommentRequest request) {
 
         User user = userFacade.getUserById(request.getComment());
 
@@ -26,6 +27,8 @@ public class CommentServiceImpl implements CommentService{
                         .content(request.getComment())
                         .build()
         );
+
+        return null;
     }
 
 
