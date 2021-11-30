@@ -34,7 +34,7 @@ public class FeedController {
         feedService.updateTitle(request);
     }
 
-    @PutMapping("/updateDescription")
+    @PutMapping("/updateDes")
     public void updateDescription(@RequestBody @Valid UpdateDescriptionRequest request) {
         feedService.updateDescription(request);
     }
