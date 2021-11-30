@@ -2,7 +2,7 @@ package com.example.unknown.domain.Admin.facade;
 
 import com.example.unknown.domain.Admin.domain.Admin;
 import com.example.unknown.domain.Admin.exception.AdminExistsException;
-import com.example.unknown.domain.Feed.domain.repository.AdminRepository;
+import com.example.unknown.domain.Admin.domain.repository.AdminRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
