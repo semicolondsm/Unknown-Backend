@@ -16,7 +16,4 @@ public class ChangePasswordRequest {
 
     @NotBlank
     private String password;
-
-    @NotBlank
-    private String newPassword;
 }
