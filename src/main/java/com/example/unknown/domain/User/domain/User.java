@@ -30,10 +30,6 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    //실무에서 대부분 LAZY를 쓴다.
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-    private List<Feed> posts;
-
     public User updatePassword(String password) {
         this.password = password;
         return this;

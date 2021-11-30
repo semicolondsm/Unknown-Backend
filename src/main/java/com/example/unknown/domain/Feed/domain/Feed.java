@@ -1,7 +1,6 @@
 package com.example.unknown.domain.Feed.domain;
 
 import com.example.unknown.global.domain.repository.BaseTimeEntity;
-import com.example.unknown.domain.User.domain.User;
 import lombok.*;
 
 import javax.persistence.*;
@@ -20,13 +19,9 @@ public class Feed extends BaseTimeEntity {
 
     @Column(length = 30)
     private String title;
-  
-    @Column(columnDefinition="TEXT")
-    private String description;
 
-    @ManyToOne()
-    @JoinColumn(name = "user_id")
-    private User user;
+    @Column(columnDefinition = "TEXT")
+    private String description;
 
     public Feed changeTitle(String title) {
         this.title = title;
