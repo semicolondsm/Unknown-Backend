@@ -1,21 +1,26 @@
 package com.example.unknown.domain.User.service;
 
 import com.example.unknown.domain.Admin.presentation.dto.request.VerifyCodeRequest;
-import com.example.unknown.domain.User.domain.AuthCode;
+import com.example.unknown.domain.Mail.domain.AuthCode;
+import com.example.unknown.domain.Mail.domain.repository.AuthCodeRepository;
 import com.example.unknown.domain.User.domain.User;
-import com.example.unknown.domain.User.domain.repository.AuthCodeRepository;
 import com.example.unknown.domain.User.domain.repository.UserRepository;
 import com.example.unknown.domain.User.domain.types.Role;
 import com.example.unknown.domain.User.facade.UserAuthCodeFacade;
 import com.example.unknown.domain.User.facade.UserFacade;
 import com.example.unknown.domain.User.presentation.dto.request.ChangePasswordRequest;
 import com.example.unknown.domain.User.presentation.dto.request.UserRequest;
-import com.example.unknown.global.exception.*;
+import com.example.unknown.global.exception.InvalidCodeException;
+import com.example.unknown.global.exception.InvalidPasswordException;
+import com.example.unknown.global.exception.InvalidRoleException;
+import com.example.unknown.global.exception.UserExistsException;
 import com.example.unknown.global.security.jwt.JwtTokenProvider;
 import com.example.unknown.global.utils.token.dto.TokenResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import javax.transaction.Transactional;
 
 @RequiredArgsConstructor
 @Service
@@ -81,6 +86,7 @@ public class UserServiceImpl implements UserService {
                 .build());
     }
 
+    @Transactional
     @Override
     public void changePassword(ChangePasswordRequest request) {
 
@@ -90,8 +96,10 @@ public class UserServiceImpl implements UserService {
             throw InvalidCodeException.EXCEPTION;
         }
 
-        userRepository.findById(request.getEmail())
-                .map(user -> user.updatePassword(passwordEncoder.encode(request.getNewPassword())))
-                .orElseThrow(() -> UserNotExistsException.EXCEPTION);
+        userRepository.save(User.builder()
+                .email(request.getEmail())
+                .password(passwordEncoder.encode(request.getNewPassword()))
+                .role(Role.ROLE_USER)
+                .build());
     }
 }
