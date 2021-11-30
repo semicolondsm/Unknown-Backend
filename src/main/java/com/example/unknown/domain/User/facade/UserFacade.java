@@ -17,6 +17,6 @@ public class UserFacade {
     }
 
     public boolean isAlreadyExists(String email) {
-        return userRepository.findById(email).isEmpty();
+        return userRepository.findById(email).isPresent();
     }
 }
