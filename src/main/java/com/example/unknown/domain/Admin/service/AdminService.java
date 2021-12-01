@@ -5,7 +5,5 @@ import com.example.unknown.global.utils.token.dto.TokenResponse;
 
 public interface AdminService {
 
-    void signUp(AdminRequest request);
-
     TokenResponse login(AdminRequest request);
 }
