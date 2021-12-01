@@ -13,7 +13,6 @@ import com.example.unknown.domain.User.presentation.dto.request.UserRequest;
 import com.example.unknown.global.exception.InvalidCodeException;
 import com.example.unknown.global.exception.InvalidPasswordException;
 import com.example.unknown.global.exception.InvalidRoleException;
-import com.example.unknown.global.exception.UserExistsException;
 import com.example.unknown.global.security.jwt.JwtTokenProvider;
 import com.example.unknown.global.utils.token.dto.TokenResponse;
 import lombok.RequiredArgsConstructor;
@@ -38,9 +37,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void signUp(UserRequest request) {
 
-        if (userFacade.isAlreadyExists(request.getEmail())) {
-            throw UserExistsException.EXCEPTION;
-        }
+        userFacade.isAlreadyExists(request.getEmail());
 
         AuthCode authCode = userAuthCodeFacade.getAuthCodeById(request.getEmail());
 
