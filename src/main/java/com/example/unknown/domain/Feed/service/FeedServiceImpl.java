@@ -2,6 +2,7 @@ package com.example.unknown.domain.Feed.service;
 
 import com.example.unknown.domain.Feed.domain.Feed;
 import com.example.unknown.domain.Feed.domain.repository.FeedRepository;
+import com.example.unknown.domain.Feed.facade.FeedFacade;
 import com.example.unknown.domain.Feed.presentation.dto.request.CreateFeedRequest;
 import com.example.unknown.domain.Feed.presentation.dto.request.DeleteFeedRequest;
 import com.example.unknown.domain.Feed.presentation.dto.request.UpdateDescriptionRequest;
@@ -16,6 +17,7 @@ import java.util.List;
 @Service
 public class FeedServiceImpl implements FeedService {
 
+    private final FeedFacade feedFacade;
     private final FeedRepository feedRepository;
 
     @Override
@@ -35,8 +37,11 @@ public class FeedServiceImpl implements FeedService {
     @Transactional
     @Override
     public void updateTitle(UpdateTitleRequest request) {
+
+        Feed feed = feedFacade.getFeedById(request.getId());
+
         feedRepository.save(Feed.builder()
-                .id(request.getId())
+                .id(feed.getId())
                 .title(request.getTitle())
                 .build());
     }
@@ -44,16 +49,22 @@ public class FeedServiceImpl implements FeedService {
     @Transactional
     @Override
     public void updateDescription(UpdateDescriptionRequest request) {
+
+        Feed feed = feedFacade.getFeedById(request.getId());
+
         feedRepository.save(Feed.builder()
-                .id((request.getId()))
+                .id(feed.getId())
                 .description(request.getDescription())
                 .build());
     }
 
     @Override
     public void deleteFeed(DeleteFeedRequest request) {
+
+        Feed feed = feedFacade.getFeedById(request.getId());
+
         feedRepository.delete(Feed.builder()
-                .id(request.getId())
+                .id(feed.getId())
                 .build());
     }
 }
