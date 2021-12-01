@@ -29,7 +29,7 @@ public class AdminServiceImpl implements AdminService {
             throw InvalidRoleException.EXCEPTION;
         }
 
-        if (!passwordEncoder.matches(request.getPassword(), admin.getPassword())) {
+        if (!admin.getPassword().equals(request.getPassword())) {
             throw InvalidPasswordException.EXCEPTION;
         }
 
