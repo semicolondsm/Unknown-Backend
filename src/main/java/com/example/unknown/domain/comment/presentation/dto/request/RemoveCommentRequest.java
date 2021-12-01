@@ -7,6 +7,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class RemoveCommentRequest {
 
-    private long comment_id;
+    private long commentId;
     private String comment;
 }
