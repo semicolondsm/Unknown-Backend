@@ -7,6 +7,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum ErrorCode {
 
+    FEED_NOT_EXISTS(404, "Feed Not Exists"),
     ADMIN_EXISTS(400, "Admin Exists"),
     USER_NOT_VERIFICATION(403, "User Not Verification"),
     INVALID_CODE(400, "Invalid Code"),
