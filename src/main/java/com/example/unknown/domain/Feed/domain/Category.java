@@ -1,5 +1,6 @@
 package com.example.unknown.domain.Feed.domain;
 
+import com.example.unknown.domain.Feed.domain.types.LanguageRole;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -15,8 +16,6 @@ public class Category {
     private Long id;
 
     @Column(nullable = false)
-    private String language;
-
-    @Column(nullable = false)
-    private String subject;
+    @Enumerated(EnumType.STRING)
+    private LanguageRole language;
 }

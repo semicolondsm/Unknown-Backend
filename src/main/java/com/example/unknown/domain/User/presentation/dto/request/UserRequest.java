@@ -25,3 +25,4 @@ public class UserRequest {
             regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#!~$%^&-+=()])(?=\\S+$).{8,16}$")
     private String password;
 }
+
