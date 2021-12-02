@@ -12,12 +12,12 @@ public class CommentFacade {
 
     private final CommentRepository commentRepository;
 
-    public Comment getCommentById(Long id) {
-        return commentRepository.findById(id).orElseThrow(() -> CommentNotFoundException.EXCEPTION);
+    public Comment getCommentById(Long commentId) {
+        return commentRepository.findById(commentId).orElseThrow(() -> CommentNotFoundException.EXCEPTION);
     }
 
-    public void isAlreadyExists(Long id) {
-        if (commentRepository.findById(id).isPresent()) {
+    public void isAlreadyExists(Long commentId) {
+        if (commentRepository.findById(commentId).isPresent()) {
             throw CommentNotFoundException.EXCEPTION;
         }
     }
