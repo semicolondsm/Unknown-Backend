@@ -8,6 +8,7 @@ import com.example.unknown.domain.Mail.presentation.dto.request.SendEmailRequest
 import com.example.unknown.domain.User.facade.UserAuthCodeFacade;
 import com.example.unknown.global.exception.InvalidCodeException;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
@@ -81,7 +82,7 @@ public class MailServiceImpl implements MailService {
     }
 
     private String createCode() {
-        return MailServiceImpl.createKey.substring(0, 3) + "-" + MailServiceImpl.createKey.substring(3, 6);
+        return RandomStringUtils.randomNumeric(6);
     }
 
     private void sendMail(MimeMessage mail) {
