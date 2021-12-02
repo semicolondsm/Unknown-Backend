@@ -18,11 +18,6 @@ public class AdminController {
 
     private final AdminService adminService;
 
-    @PostMapping("/signup")
-    public void signUp(@RequestBody @Valid AdminRequest request) {
-        adminService.signUp(request);
-    }
-
     @PostMapping("/login")
     public TokenResponse login(@RequestBody @Valid AdminRequest request) {
         return adminService.login(request);
