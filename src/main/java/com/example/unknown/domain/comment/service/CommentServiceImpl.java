@@ -4,7 +4,7 @@ import com.example.unknown.domain.User.domain.User;
 import com.example.unknown.domain.User.facade.UserFacade;
 import com.example.unknown.domain.comment.domain.Comment;
 import com.example.unknown.domain.comment.domain.repository.CommentRepository;
-import com.example.unknown.domain.comment.exception.CommentNotFoundException;
+import com.example.unknown.domain.comment.facade.CommentFacade;
 import com.example.unknown.domain.comment.presentation.dto.request.CommentRequest;
 import com.example.unknown.domain.comment.presentation.dto.request.EditCommentRequest;
 import com.example.unknown.domain.comment.presentation.dto.request.RemoveCommentRequest;
@@ -17,6 +17,7 @@ public class CommentServiceImpl implements CommentService {
 
     private final CommentRepository commentRepository;
     private final UserFacade userFacade;
+    private final CommentFacade commentFacade;
 
     @Override
     public void postComment(CommentRequest request) {
@@ -37,7 +38,7 @@ public class CommentServiceImpl implements CommentService {
 
         userFacade.getUserById(request.getComment());
 
-        Comment comment = getComment(request.getCommentId());
+        Comment comment = commentFacade.getCommentById(request.getCommentId());
 
         comment.editContent(request.getComment());
 
@@ -49,16 +50,8 @@ public class CommentServiceImpl implements CommentService {
 
         userFacade.getUserById(request.getComment());
 
-        Comment comment = getComment(request.getCommentId());
-        commentRepository.delete(comment);
+        commentRepository.delete(commentFacade.getCommentById(request.getCommentId()));
 
     }
-
-    private Comment getComment(Long commentId) {
-        return commentRepository.findById(commentId)
-                .orElseThrow(() -> CommentNotFoundException.EXCEPTION);
-    }
-
-
 
 }
