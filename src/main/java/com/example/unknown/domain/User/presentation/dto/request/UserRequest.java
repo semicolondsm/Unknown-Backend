@@ -18,3 +18,4 @@ public class UserRequest {
     @Length(min = 8, max = 25)
     private String password;
 }
+
