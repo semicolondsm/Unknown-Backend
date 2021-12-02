@@ -35,7 +35,7 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public void editComment(EditCommentRequest request) {
 
-        User user = userFacade.getUserById(request.getComment());
+        userFacade.getUserById(request.getComment());
 
         Comment comment = getComment(request.getCommentId());
 
@@ -47,9 +47,9 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public void removeComment(RemoveCommentRequest request) {
 
-        User user = userFacade.getUserById(request.getComment());
+        userFacade.getUserById(request.getComment());
 
-        Comment comment = getComment(request.getComment_id());
+        Comment comment = getComment(request.getCommentId());
         commentRepository.delete(comment);
 
     }
