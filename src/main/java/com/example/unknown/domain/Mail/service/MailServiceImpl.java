@@ -17,7 +17,6 @@ import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.util.Optional;
-import java.util.Random;
 
 @RequiredArgsConstructor
 @Service
@@ -25,8 +24,6 @@ public class MailServiceImpl implements MailService {
 
     private static final Integer REDIS_TTL = 5 * 60;
 
-    private static final StringBuilder key = new StringBuilder();
-    private static final Random random = new Random();
     private final UserAuthCodeFacade userAuthCodeFacade;
     private final JavaMailSender mailSender;
     private final AuthCodeRepository authCodeRepository;
