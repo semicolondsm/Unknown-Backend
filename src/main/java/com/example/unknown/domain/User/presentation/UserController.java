@@ -1,8 +1,8 @@
 package com.example.unknown.domain.User.presentation;
 
+import com.example.unknown.domain.Admin.presentation.dto.request.VerifyCodeRequest;
 import com.example.unknown.domain.User.presentation.dto.request.ChangePasswordRequest;
 import com.example.unknown.domain.User.presentation.dto.request.UserRequest;
-import com.example.unknown.domain.Admin.presentation.dto.request.VerifyCodeRequest;
 import com.example.unknown.domain.User.service.UserService;
 import com.example.unknown.global.utils.token.dto.TokenResponse;
 import lombok.RequiredArgsConstructor;

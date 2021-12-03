@@ -23,12 +23,10 @@ import java.util.Random;
 @Service
 public class MailServiceImpl implements MailService {
 
-    private static final Integer CODE_LENGTH = 6;
     private static final Integer REDIS_TTL = 5 * 60;
 
     private static final StringBuilder key = new StringBuilder();
     private static final Random random = new Random();
-    public static final String createKey = createKey();
     private final UserAuthCodeFacade userAuthCodeFacade;
     private final JavaMailSender mailSender;
     private final AuthCodeRepository authCodeRepository;
@@ -70,15 +68,6 @@ public class MailServiceImpl implements MailService {
                 .message("Email Verify")
                 .ttl(REDIS_TTL)
                 .build());
-    }
-
-    private static String createKey() {
-        key.setLength(0);
-
-        for (int i = 0; i < CODE_LENGTH; i++) {
-            key.append((random.nextInt(10)));
-        }
-        return key.toString();
     }
 
     private String createCode() {
