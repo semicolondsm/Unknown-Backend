@@ -50,6 +50,8 @@ public class UserServiceImpl implements UserService {
                 .password(passwordEncoder.encode(request.getPassword()))
                 .role(Role.ROLE_USER)
                 .build());
+
+        userAuthCodeFacade.AuthCodeDelete(request.getEmail());
     }
 
     @Override
@@ -98,5 +100,7 @@ public class UserServiceImpl implements UserService {
                 .password(passwordEncoder.encode(request.getNewPassword()))
                 .role(Role.ROLE_USER)
                 .build());
+
+        userAuthCodeFacade.AuthCodeDelete(request.getEmail());
     }
 }
