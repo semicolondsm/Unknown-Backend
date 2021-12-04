@@ -16,8 +16,8 @@ public class FeedResponse {
     private String title;
     private String description;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd`T`hh:mm:SS")
+    @DateTimeFormat(pattern = "YYYY-MM-DD'T'hh:mm:ss")
     private LocalDateTime createdTime;
+    private LocalDateTime modifiTime;
 
-    private String userName;
 }
