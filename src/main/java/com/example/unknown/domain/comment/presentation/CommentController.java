@@ -1,9 +1,6 @@
 package com.example.unknown.domain.comment.presentation;
 
 import com.example.unknown.domain.comment.presentation.dto.request.CommentRequest;
-import com.example.unknown.domain.comment.presentation.dto.request.EditCommentRequest;
-import com.example.unknown.domain.comment.presentation.dto.request.RemoveCommentRequest;
-import com.example.unknown.domain.comment.presentation.dto.response.CommentResponse;
 import com.example.unknown.domain.comment.service.CommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -26,14 +23,14 @@ public class CommentController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void editComment(@RequestBody @Valid EditCommentRequest request) {
+    public void editComment(@RequestBody @Valid CommentRequest request) {
 
         commentService.editComment(request);
     }
 
     @DeleteMapping
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void removeComment(@RequestBody @Valid RemoveCommentRequest request) {
+    public void removeComment(@RequestBody @Valid CommentRequest request) {
 
         commentService.removeComment(request);
     }
