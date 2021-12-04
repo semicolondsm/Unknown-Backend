@@ -12,26 +12,26 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/feeds")
+@RequestMapping("/commment")
 @RequiredArgsConstructor
 public class CommentController {
 
     private final CommentService commentService;
 
-    @PostMapping("/comment")
+    @PostMapping
     public void postComment(@RequestBody @Valid CommentRequest request) {
 
         commentService.postComment(request);
     }
 
-    @PostMapping("/edit/comment")
+    @PostMapping
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void editComment(@RequestBody @Valid EditCommentRequest request) {
 
         commentService.editComment(request);
     }
 
-    @DeleteMapping("/remove/comment")
+    @DeleteMapping
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void removeComment(@RequestBody @Valid RemoveCommentRequest request) {
 
