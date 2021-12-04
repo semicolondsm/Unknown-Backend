@@ -1,15 +1,19 @@
 package com.example.unknown.domain.comment.service;
 
+import com.example.unknown.domain.Feed.domain.repository.FeedRepository;
 import com.example.unknown.domain.User.domain.User;
 import com.example.unknown.domain.User.facade.UserFacade;
 import com.example.unknown.domain.comment.domain.Comment;
 import com.example.unknown.domain.comment.domain.repository.CommentRepository;
 import com.example.unknown.domain.comment.exception.CommentNotFoundException;
 import com.example.unknown.domain.comment.presentation.dto.request.CommentRequest;
-import com.example.unknown.domain.comment.presentation.dto.request.EditCommentRequest;
-import com.example.unknown.domain.comment.presentation.dto.request.RemoveCommentRequest;
+import com.example.unknown.global.exception.ApplicationNotFoundException;
+import com.example.unknown.global.security.auth.AuthenticationFacade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 
 @Service
 @RequiredArgsConstructor
@@ -17,48 +21,36 @@ public class CommentServiceImpl implements CommentService {
 
     private final CommentRepository commentRepository;
     private final UserFacade userFacade;
+    private final AuthenticationFacade authenticationFacade;
+
+    private final FeedRepository feedRepository;
 
     @Override
-    public void postComment(CommentRequest request) {
+    public void postComment(Integer feedId, CommentRequest request) {
 
-        User user = userFacade.getUserById(request.getComment());
+        User user = userFacade.getUserById(request.getContent());
+
+        feedRepository.findById(feedId)
+                .orElseThrow(() -> ApplicationNotFoundException.EXCEPTION);
 
         commentRepository.save(
                 Comment.builder()
-                        .user(user)
-                        .content(request.getComment())
+                        .content(request.getContent())
+                        .commentId(feedId)
+                        .createdAt(LocalDateTime.now(ZoneId.of("Asia/Seoul")))
+                        .updateAt(LocalDateTime.now(ZoneId.of("Asia/Seoul")))
                         .build()
+
         );
-
     }
 
     @Override
-    public void editComment(EditCommentRequest request) {
-
-        userFacade.getUserById(request.getComment());
-
-        Comment comment = getComment(request.getCommentId());
-
-        comment.editContent(request.getComment());
-
-        commentRepository.save(comment);
+    public Integer editComment(Integer commentId, CommentRequest request) {
+        return null;
     }
 
     @Override
-    public void removeComment(RemoveCommentRequest request) {
-
-        userFacade.getUserById(request.getComment());
-
-        Comment comment = getComment(request.getCommentId());
-        commentRepository.delete(comment);
+    public void removeComment(Integer commentId, CommentRequest request) {
 
     }
-
-    private Comment getComment(Long commentId) {
-        return commentRepository.findById(commentId)
-                .orElseThrow(() -> CommentNotFoundException.EXCEPTION);
-    }
-
-
-
 }
