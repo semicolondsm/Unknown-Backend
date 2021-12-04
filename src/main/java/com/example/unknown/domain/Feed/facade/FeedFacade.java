@@ -6,15 +6,18 @@ import com.example.unknown.domain.Feed.exception.FeedNotExistsException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import javax.validation.constraints.NotBlank;
+
 @Component
 @RequiredArgsConstructor
 public class FeedFacade {
 
     private final FeedRepository feedRepository;
 
-    public Feed getFeedById(Long id) {
+    public Feed getFeedById(@NotBlank Long id) {
 
-        return feedRepository.findById(id).orElseThrow(() -> FeedNotExistsException.EXCEPTION);
+        return feedRepository.findById(id)
+                .orElseThrow(() -> FeedNotExistsException.EXCEPTION);
     }
 
 }
