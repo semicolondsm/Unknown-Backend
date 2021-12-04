@@ -22,6 +22,8 @@ public class Feed extends BaseTimeEntity {
     @Column(columnDefinition = "TEXT")
     private String description;
 
+    private boolean searchFeed;
+
     public Feed changeTitle(String title) {
         this.title = title;
         return this;
@@ -29,6 +31,11 @@ public class Feed extends BaseTimeEntity {
 
     public Feed changeDescription(String description) {
         this.description = description;
+        return this;
+    }
+
+    public Feed searchFeed() {
+        this.searchFeed = true;
         return this;
     }
 
