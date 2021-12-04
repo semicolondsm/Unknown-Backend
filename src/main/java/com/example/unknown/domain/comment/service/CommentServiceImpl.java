@@ -36,7 +36,7 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public void editComment(EditCommentRequest request) {
 
-        userFacade.getUserById(request.getComment());
+        userFacade.isAlreadyExists(request.getComment());
 
         Comment comment = commentFacade.getCommentById(request.getCommentId());
 
@@ -48,7 +48,7 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public void removeComment(RemoveCommentRequest request) {
 
-        userFacade.getUserById(request.getComment());
+        userFacade.isAlreadyExists(request.getComment());
 
         commentRepository.delete(commentFacade.getCommentById(request.getCommentId()));
 
