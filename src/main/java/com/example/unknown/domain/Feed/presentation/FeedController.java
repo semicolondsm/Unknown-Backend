@@ -1,16 +1,17 @@
 package com.example.unknown.domain.Feed.presentation;
 
-import com.example.unknown.domain.Feed.domain.Feed;
 import com.example.unknown.domain.Feed.presentation.dto.request.CreateFeedRequest;
-import com.example.unknown.domain.Feed.presentation.dto.request.DeleteFeedRequest;
 import com.example.unknown.domain.Feed.presentation.dto.request.UpdateDescriptionRequest;
 import com.example.unknown.domain.Feed.presentation.dto.request.UpdateTitleRequest;
+import com.example.unknown.domain.Feed.presentation.dto.response.FeedResponse;
 import com.example.unknown.domain.Feed.service.FeedService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
+import java.awt.print.Pageable;
 
 @RestController
 @RequiredArgsConstructor
@@ -20,27 +21,32 @@ public class FeedController {
     private final FeedService feedService;
 
     @PostMapping("/create")
+    @ResponseStatus(HttpStatus.CREATED)
     public void createFeed(@RequestBody @Valid CreateFeedRequest request) {
         feedService.createFeed(request);
     }
 
-    @GetMapping("/get")
-    public List<Feed> get() {
-        return feedService.getFeed();
+    @GetMapping
+    public FeedResponse getFeedList(Pageable pageable) {
+        return (FeedResponse) feedService.getFeedList(pageable);
     }
 
-    @PutMapping("/update_title")
+    @PutMapping("/update/title")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateTitle(@RequestBody @Valid UpdateTitleRequest request) {
         feedService.updateTitle(request);
     }
 
-    @PutMapping("/update_description")
+    @PutMapping("/update/description")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateDescription(@RequestBody @Valid UpdateDescriptionRequest request) {
         feedService.updateDescription(request);
     }
 
     @DeleteMapping("/delete")
-    public void deleteFeed(@RequestBody @Valid DeleteFeedRequest request) {
-        feedService.deleteFeed(request);
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteFeed(@PathVariable Integer feedId) {
+        feedService.deleteFeed(feedId);
     }
 }
+
