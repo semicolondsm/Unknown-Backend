@@ -15,4 +15,8 @@ public class UserAuthCodeFacade {
     public AuthCode getAuthCodeById(String email) {
         return authCodeRepository.findById(email).orElseThrow(() -> UserNotVerificationException.EXCEPTION);
     }
+
+    public void AuthCodeDelete(String email) {
+        authCodeRepository.deleteById(email);
+    }
 }
