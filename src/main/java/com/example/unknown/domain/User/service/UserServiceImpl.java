@@ -11,6 +11,7 @@ import com.example.unknown.domain.User.facade.UserFacade;
 import com.example.unknown.domain.User.presentation.dto.request.ChangePasswordRequest;
 import com.example.unknown.domain.User.presentation.dto.request.UserRequest;
 import com.example.unknown.global.exception.InvalidCodeException;
+import com.example.unknown.global.exception.InvalidMessageException;
 import com.example.unknown.global.exception.InvalidPasswordException;
 import com.example.unknown.global.exception.InvalidRoleException;
 import com.example.unknown.global.security.jwt.JwtTokenProvider;
@@ -39,10 +40,8 @@ public class UserServiceImpl implements UserService {
 
         userFacade.isAlreadyExists(request.getEmail());
 
-        AuthCode authCode = userAuthCodeFacade.getAuthCodeById(request.getEmail());
-
-        if (!authCode.getMessage().equals("Email Verify")) {
-            throw InvalidCodeException.EXCEPTION;
+        if (!userAuthCodeFacade.getAuthCodeById(request.getEmail()).getMessage().equals("Email Verify")) {
+            throw InvalidMessageException.EXCEPTION;
         }
 
         userRepository.save(User.builder()
@@ -89,10 +88,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public void changePassword(ChangePasswordRequest request) {
 
-        AuthCode authCode = userAuthCodeFacade.getAuthCodeById(request.getEmail());
-
-        if (!authCode.getMessage().equals("Password Verify")) {
-            throw InvalidCodeException.EXCEPTION;
+        if (!userAuthCodeFacade.getAuthCodeById(request.getEmail()).getMessage().equals("Password Verify")) {
+            throw InvalidMessageException.EXCEPTION;
         }
 
         userRepository.save(User.builder()
