@@ -24,17 +24,17 @@ public class FeedController {
         feedService.createFeed(request);
     }
 
-    @GetMapping("/get")
+    @GetMapping
     public List<Feed> get() {
         return feedService.getFeed();
     }
 
-    @PutMapping("/update_title")
+    @PutMapping("/update/title")
     public void updateTitle(@RequestBody @Valid UpdateTitleRequest request) {
         feedService.updateTitle(request);
     }
 
-    @PutMapping("/update_description")
+    @PutMapping("/update/description")
     public void updateDescription(@RequestBody @Valid UpdateDescriptionRequest request) {
         feedService.updateDescription(request);
     }
