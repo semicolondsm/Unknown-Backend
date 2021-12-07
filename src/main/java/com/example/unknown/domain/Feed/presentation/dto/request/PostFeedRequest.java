@@ -17,7 +17,7 @@ public class PostFeedRequest {
     private String title;
 
     @Size(max = 65535, message = "description은 65535글자를 넘어서는 안됩니다.")
-    @NotBlank(message = "description은 비어이었으면 안됩니다.")
+    @NotBlank(message = "description은 비어있으면 안됩니다.")
     private String description;
 
     @DateTimeFormat(pattern = "YYYY-MM-DD'T'hh:mm:ss")
