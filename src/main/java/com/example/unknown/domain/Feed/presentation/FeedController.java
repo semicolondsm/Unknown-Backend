@@ -1,6 +1,6 @@
 package com.example.unknown.domain.Feed.presentation;
 
-import com.example.unknown.domain.Feed.presentation.dto.request.PostRequest;
+import com.example.unknown.domain.Feed.presentation.dto.request.PostFeedRequest;
 import com.example.unknown.domain.Feed.service.FeedService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -18,7 +18,7 @@ public class FeedController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.OK)
-    public void PostFeed (PostRequest request) {
+    public void PostFeed (PostFeedRequest request) {
         feedService.PostFeed(request);
     }
 }
