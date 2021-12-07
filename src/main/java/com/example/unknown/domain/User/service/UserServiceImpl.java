@@ -55,7 +55,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public TokenResponse login(UserRequest request) {
-        User user = userFacade.getUserById(request.getEmail());
+        User user = userFacade.getUser();
 
         if (!user.getRole().equals(Role.ROLE_USER)) {
             throw InvalidRoleException.EXCEPTION;
