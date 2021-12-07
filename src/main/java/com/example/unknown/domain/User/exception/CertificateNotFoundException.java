@@ -8,7 +8,7 @@ public class CertificateNotFoundException extends CustomException {
     public static CustomException EXCEPTION =
             new CertificateNotFoundException();
 
-    public CertificateNotFoundException() {
+    private CertificateNotFoundException() {
         super(ErrorCode.CERTIFICATE_NOT_FOUND);
     }
 }
