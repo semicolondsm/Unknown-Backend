@@ -1,24 +1,31 @@
 package com.example.unknown.domain.Feed.presentation;
 
+import com.example.unknown.domain.Feed.presentation.dto.request.ModifyFeedRequest;
 import com.example.unknown.domain.Feed.presentation.dto.request.PostFeedRequest;
 import com.example.unknown.domain.Feed.service.FeedService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @RestController
-@RequiredArgsConstructor
 @RequestMapping("/feed")
+@RequiredArgsConstructor
 public class FeedController {
 
     private final FeedService feedService;
 
     @PostMapping
-    @ResponseStatus(HttpStatus.OK)
-    public void PostFeed (PostFeedRequest request) {
+    @ResponseStatus(HttpStatus.CREATED)
+    public void PostFeed (@RequestBody @Valid PostFeedRequest request) {
         feedService.PostFeed(request);
     }
+
+    @PatchMapping
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void modifyCarrotFeed(@RequestBody @Valid ModifyFeedRequest request) {
+        feedService.modifyFeed(request);
+    }
+
 }
