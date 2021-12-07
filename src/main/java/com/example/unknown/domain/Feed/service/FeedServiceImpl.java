@@ -90,4 +90,16 @@ public class FeedServiceImpl implements FeedService {
                 }).collect(Collectors.toList());
     }
 
+    @Override
+    public FeedResponse getOneFeed(Long feedId) {
+
+        User user = userRepository.findById(userFacade.getEmail())
+                .orElse(null);
+
+        Feed feed = feedRepository.findById(feedId)
+                .orElseThrow(() -> FeedNotExistsException.EXCEPTION);
+
+        return 
+    }
+
 }
