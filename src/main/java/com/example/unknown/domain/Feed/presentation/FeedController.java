@@ -24,8 +24,15 @@ public class FeedController {
 
     @PatchMapping
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void modifyCarrotFeed(@RequestBody @Valid ModifyFeedRequest request) {
+    public void modifyFeed(@RequestBody @Valid ModifyFeedRequest request) {
         feedService.modifyFeed(request);
+    }
+
+    @DeleteMapping("/{feed_id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void removeFeed(@PathVariable(name = "feed_id") Long feedId) {
+
+        feedService.removeFeed(feedId);
     }
 
 }
