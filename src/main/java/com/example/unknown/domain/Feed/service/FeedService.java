@@ -8,4 +8,7 @@ public interface FeedService {
     void PostFeed(PostFeedRequest request);
 
     void modifyFeed(ModifyFeedRequest request);
+
+    void removeFeed(Long id);
+
 }
