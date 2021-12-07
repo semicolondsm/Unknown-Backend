@@ -6,12 +6,18 @@ import com.example.unknown.domain.Feed.exception.FeedNotExistsException;
 import com.example.unknown.domain.Feed.facade.FeedFacade;
 import com.example.unknown.domain.Feed.presentation.dto.request.ModifyFeedRequest;
 import com.example.unknown.domain.Feed.presentation.dto.request.PostFeedRequest;
+import com.example.unknown.domain.Feed.presentation.dto.response.FeedResponse;
 import com.example.unknown.domain.User.domain.User;
 import com.example.unknown.domain.User.domain.repository.UserRepository;
 import com.example.unknown.domain.User.exception.UserNotFoundException;
 import com.example.unknown.domain.User.facade.UserFacade;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -56,4 +62,22 @@ public class FeedServiceImpl implements FeedService {
 
         feedRepository.deleteById(id);
     }
+
+    @Override
+    public List<FeedResponse> getFeed(int page, int range) {
+        User user = userRepository.findById(userFacade.getEmail())
+                .orElse(null);
+
+        return feedRepository.findFeedById(true, PageRequest.of(page, range, Sort.by("id").descending()))
+                .stream()
+                .map(feed -> {
+                    FeedResponse response = FeedResponse.builder()
+                            .feedId(feed.getId())
+                            .title(feed.getTitle())
+                            .description(feed.getDescription())
+                            .build();
+                    return response;
+                }).collect(Collectors.toList());
+    }
+
 }
