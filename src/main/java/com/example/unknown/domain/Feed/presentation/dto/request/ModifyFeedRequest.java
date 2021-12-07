@@ -18,7 +18,7 @@ public class ModifyFeedRequest {
     @NotBlank(message = "title은 공백이면 안됩니다.")
     private String title;
 
-    @Size(max = 65535, message = "description은 655353글자를 넘으면 안됩니다.")
+    @Size(max = 65535, message = "description은 65535글자를 넘으면 안됩니다.")
     private String description;
 
 }
