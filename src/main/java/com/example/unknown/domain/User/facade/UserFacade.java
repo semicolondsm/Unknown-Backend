@@ -2,6 +2,7 @@ package com.example.unknown.domain.User.facade;
 
 import com.example.unknown.domain.User.domain.User;
 import com.example.unknown.domain.User.domain.repository.UserRepository;
+import com.example.unknown.domain.User.exception.UserNotFoundException;
 import com.example.unknown.global.exception.UserExistsException;
 import com.example.unknown.global.exception.UserNotExistsException;
 import lombok.RequiredArgsConstructor;
@@ -22,4 +23,10 @@ public class UserFacade {
             throw UserExistsException.EXCEPTION;
         }
     }
+
+    public User getUserByEmail(String email){
+        return userRepository.findById(email)
+                .orElseThrow(() -> UserNotFoundException.EXCEPTION);
+    }
+
 }
