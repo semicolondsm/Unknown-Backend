@@ -4,6 +4,7 @@ import com.example.unknown.global.domain.repository.BaseTimeEntity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Getter
 @Builder
@@ -21,6 +22,9 @@ public class Feed extends BaseTimeEntity {
 
     @Column(columnDefinition = "TEXT")
     private String description;
+
+    private LocalDateTime createAt;
+    private LocalDateTime modifyAt;
 
     public Feed changeTitle(String title) {
         this.title = title;
