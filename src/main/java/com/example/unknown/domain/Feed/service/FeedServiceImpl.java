@@ -16,6 +16,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -37,6 +39,7 @@ public class FeedServiceImpl implements FeedService {
                         Feed.builder()
                                 .title(request.getTitle())
                                 .description(request.getDescription())
+                                .createAt(LocalDateTime.now(ZoneId.of("Asia/Seoul")))
                                 .build()
         );
     }
@@ -50,6 +53,13 @@ public class FeedServiceImpl implements FeedService {
         feed
                 .changeTitle(request.getTitle())
                 .changeDescription(request.getDescription());
+
+        feedRepository.save(
+                Feed.builder()
+                        .modifyAt(request.getModifyTime())
+                        .build()
+        );
+
     }
 
     @Override
