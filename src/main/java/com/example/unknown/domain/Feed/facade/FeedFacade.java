@@ -10,11 +10,4 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class FeedFacade {
 
-    private final FeedRepository feedRepository;
-
-    public Feed getFeedById(Long id) {
-
-        return feedRepository.findById(id).orElseThrow(() -> FeedNotExistsException.EXCEPTION);
-    }
-
 }
