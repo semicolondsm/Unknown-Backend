@@ -8,7 +8,7 @@ import javax.validation.constraints.Size;
 
 @Getter
 @NoArgsConstructor
-public class PostRequest {
+public class PostFeedRequest {
 
     @Size(max = 30, message = "title은 30글자를 넘으면 안됩니다.")
     @NotBlank(message = "title은 비어있으면 안됩니다.")
