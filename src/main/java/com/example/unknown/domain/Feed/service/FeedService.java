@@ -16,4 +16,6 @@ public interface FeedService {
 
     List<FeedResponse> getFeed(int page, int range);
 
+    FeedResponse getOneFeed(Long feedId);
+
 }
