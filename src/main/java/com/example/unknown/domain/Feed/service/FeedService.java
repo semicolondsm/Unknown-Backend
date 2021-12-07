@@ -1,8 +1,11 @@
 package com.example.unknown.domain.Feed.service;
 
-import com.example.unknown.domain.Feed.presentation.dto.request.PostRequest;
+import com.example.unknown.domain.Feed.presentation.dto.request.ModifyFeedRequest;
+import com.example.unknown.domain.Feed.presentation.dto.request.PostFeedRequest;
 
 public interface FeedService {
 
-    void PostFeed(PostRequest request);
+    void PostFeed(PostFeedRequest request);
+
+    void modifyFeed(ModifyFeedRequest request);
 }
