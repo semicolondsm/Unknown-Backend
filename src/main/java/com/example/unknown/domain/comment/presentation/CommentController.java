@@ -1,5 +1,6 @@
 package com.example.unknown.domain.comment.presentation;
 
+import com.example.unknown.domain.Feed.presentation.dto.response.FeedResponse;
 import com.example.unknown.domain.comment.presentation.dto.request.PostCommentRequest;
 import com.example.unknown.domain.comment.presentation.dto.request.EditCommentRequest;
 import com.example.unknown.domain.comment.presentation.dto.request.RemoveCommentRequest;
@@ -8,7 +9,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.ReportAsSingleViolation;
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/comment")
@@ -18,16 +21,17 @@ public class CommentController {
     private final CommentService commentService;
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public void postComment(@RequestBody @Valid PostCommentRequest request) {
 
         commentService.postComment(request);
     }
 
-    @PostMapping
+    @PatchMapping
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void editComment(@RequestBody @Valid EditCommentRequest request) {
+    public void modifyComment(@RequestBody @Valid EditCommentRequest request) {
 
-        commentService.editComment(request);
+        commentService.modifyComment(request);
     }
 
     @DeleteMapping
@@ -36,5 +40,4 @@ public class CommentController {
 
         commentService.removeComment(request);
     }
-
 }
