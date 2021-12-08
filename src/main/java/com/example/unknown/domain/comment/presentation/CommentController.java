@@ -1,9 +1,8 @@
 package com.example.unknown.domain.comment.presentation;
 
-import com.example.unknown.domain.comment.presentation.dto.request.CommentRequest;
+import com.example.unknown.domain.comment.presentation.dto.request.PostCommentRequest;
 import com.example.unknown.domain.comment.presentation.dto.request.EditCommentRequest;
 import com.example.unknown.domain.comment.presentation.dto.request.RemoveCommentRequest;
-import com.example.unknown.domain.comment.presentation.dto.response.CommentResponse;
 import com.example.unknown.domain.comment.service.CommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -19,7 +18,7 @@ public class CommentController {
     private final CommentService commentService;
 
     @PostMapping("/comment")
-    public void postComment(@RequestBody @Valid CommentRequest request) {
+    public void postComment(@RequestBody @Valid PostCommentRequest request) {
 
         commentService.postComment(request);
     }

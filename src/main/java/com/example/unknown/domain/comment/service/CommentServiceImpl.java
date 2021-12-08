@@ -5,7 +5,7 @@ import com.example.unknown.domain.User.facade.UserFacade;
 import com.example.unknown.domain.comment.domain.Comment;
 import com.example.unknown.domain.comment.domain.repository.CommentRepository;
 import com.example.unknown.domain.comment.facade.CommentFacade;
-import com.example.unknown.domain.comment.presentation.dto.request.CommentRequest;
+import com.example.unknown.domain.comment.presentation.dto.request.PostCommentRequest;
 import com.example.unknown.domain.comment.presentation.dto.request.EditCommentRequest;
 import com.example.unknown.domain.comment.presentation.dto.request.RemoveCommentRequest;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +20,7 @@ public class CommentServiceImpl implements CommentService {
     private final CommentFacade commentFacade;
 
     @Override
-    public void postComment(CommentRequest request) {
+    public void postComment(PostCommentRequest request) {
 
         User user = userFacade.getUser();
 
