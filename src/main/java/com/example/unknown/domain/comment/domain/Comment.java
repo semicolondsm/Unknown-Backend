@@ -36,7 +36,7 @@ public class Comment {
         this.commentModifyAt = commentModifyAt;
     }
 
-    public void editContent(String comment) {
+    public void modifyContent(String comment) {
         this.comment = comment;
     }
 
