@@ -99,7 +99,7 @@ public class FeedServiceImpl implements FeedService {
         Feed feed = feedRepository.findById(feedId)
                 .orElseThrow(() -> FeedNotExistsException.EXCEPTION);
 
-        return 
+        return feedFacade.feedToFeedResponse(feed, user);
     }
 
 }
