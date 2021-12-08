@@ -1,5 +1,6 @@
 package com.example.unknown.domain.Feed.domain;
 
+import com.example.unknown.domain.User.domain.User;
 import com.example.unknown.global.domain.repository.BaseTimeEntity;
 import lombok.*;
 
@@ -25,6 +26,10 @@ public class Feed extends BaseTimeEntity {
 
     private LocalDateTime createAt;
     private LocalDateTime modifyAt;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "uesrId", nullable = false)
+    private User userId;
 
     public Feed changeTitle(String title) {
         this.title = title;
