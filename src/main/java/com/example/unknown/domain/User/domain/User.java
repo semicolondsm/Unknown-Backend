@@ -26,6 +26,9 @@ public class User implements UserDetails {
     @Column(nullable = false)
     private String password;
 
+    @Column(nullable = false)
+    private String githubId;
+
     @Column(length = 20)
     @Enumerated(EnumType.STRING)
     private Role role;
