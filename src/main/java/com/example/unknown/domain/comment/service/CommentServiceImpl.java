@@ -22,7 +22,7 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public void postComment(CommentRequest request) {
 
-        User user = userFacade.getUserById(request.getComment());
+        User user = userFacade.getUser();
 
         commentRepository.save(
                 Comment.builder()

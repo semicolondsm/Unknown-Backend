@@ -1,22 +1,21 @@
 package com.example.unknown.domain.Feed.service;
 
-import com.example.unknown.domain.Feed.domain.Feed;
-import com.example.unknown.domain.Feed.presentation.dto.request.CreateFeedRequest;
-import com.example.unknown.domain.Feed.presentation.dto.request.DeleteFeedRequest;
-import com.example.unknown.domain.Feed.presentation.dto.request.UpdateDescriptionRequest;
-import com.example.unknown.domain.Feed.presentation.dto.request.UpdateTitleRequest;
+import com.example.unknown.domain.Feed.presentation.dto.request.ModifyFeedRequest;
+import com.example.unknown.domain.Feed.presentation.dto.request.PostFeedRequest;
+import com.example.unknown.domain.Feed.presentation.dto.response.FeedResponse;
 
 import java.util.List;
 
 public interface FeedService {
 
-    List<Feed> getFeed();
+    void PostFeed(PostFeedRequest request);
 
-    void createFeed(CreateFeedRequest request);
+    void modifyFeed(ModifyFeedRequest request);
 
-    void updateTitle(UpdateTitleRequest request);
+    void removeFeed(Long id);
 
-    void updateDescription(UpdateDescriptionRequest request);
+    List<FeedResponse> getFeed(int page, int range);
 
-    void deleteFeed(DeleteFeedRequest request);
+    FeedResponse getOneFeed(Long feedId);
+
 }

@@ -1,46 +1,45 @@
 package com.example.unknown.domain.Feed.presentation;
 
-import com.example.unknown.domain.Feed.domain.Feed;
-import com.example.unknown.domain.Feed.presentation.dto.request.CreateFeedRequest;
-import com.example.unknown.domain.Feed.presentation.dto.request.DeleteFeedRequest;
-import com.example.unknown.domain.Feed.presentation.dto.request.UpdateDescriptionRequest;
-import com.example.unknown.domain.Feed.presentation.dto.request.UpdateTitleRequest;
+import com.example.unknown.domain.Feed.presentation.dto.request.ModifyFeedRequest;
+import com.example.unknown.domain.Feed.presentation.dto.request.PostFeedRequest;
+import com.example.unknown.domain.Feed.presentation.dto.response.FeedResponse;
 import com.example.unknown.domain.Feed.service.FeedService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequiredArgsConstructor
 @RequestMapping("/feed")
+@RequiredArgsConstructor
 public class FeedController {
 
     private final FeedService feedService;
 
-    @PostMapping("/create")
-    public void createFeed(@RequestBody @Valid CreateFeedRequest request) {
-        feedService.createFeed(request);
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public void PostFeed (@RequestBody @Valid PostFeedRequest request) {
+        feedService.PostFeed(request);
     }
 
-    @GetMapping("/get")
-    public List<Feed> get() {
-        return feedService.getFeed();
+    @PatchMapping
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void modifyFeed(@RequestBody @Valid ModifyFeedRequest request) {
+        feedService.modifyFeed(request);
     }
 
-    @PutMapping("/update_title")
-    public void updateTitle(@RequestBody @Valid UpdateTitleRequest request) {
-        feedService.updateTitle(request);
+    @DeleteMapping("/{feed_id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void removeFeed(@PathVariable(name = "feed_id") Long feedId) {
+
+        feedService.removeFeed(feedId);
     }
 
-    @PutMapping("/update_description")
-    public void updateDescription(@RequestBody @Valid UpdateDescriptionRequest request) {
-        feedService.updateDescription(request);
+    @GetMapping("/List")
+    public List<FeedResponse> getFeed(@RequestParam("page")int page, @RequestParam("range") int range) {
+        return feedService.getFeed(page, range);
     }
 
-    @DeleteMapping("/delete")
-    public void deleteFeed(@RequestBody @Valid DeleteFeedRequest request) {
-        feedService.deleteFeed(request);
-    }
 }
