@@ -106,12 +106,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public TokenResponse tokenRefresh(RefreshTokenRequest request) {
-        jwtTokenProvider.isRefreshToken(request.getRefresh_token());
+        jwtTokenProvider.isRefreshToken(request.getRefreshToken());
 
-        return refreshTokenRepository.findByToken(request.getRefresh_token())
+        return refreshTokenRepository.findByToken(request.getRefreshToken())
                 .map(token -> {
                     String accessToken = jwtTokenProvider.generateAccessToken(token.getEmail());
-                    String newRefreshToken = jwtTokenProvider.generateRefreshToken(request.getRefresh_token());
+                    String newRefreshToken = jwtTokenProvider.generateRefreshToken(request.getRefreshToken());
                     token.update(newRefreshToken, jwtProperties.getRefresh());
                     return new TokenResponse(accessToken, newRefreshToken);
                 })
