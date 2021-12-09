@@ -80,11 +80,12 @@ public class FeedServiceImpl implements FeedService {
         return feedRepository.findFeedById(true, PageRequest.of(page, range, Sort.by("id").descending()))
                 .stream()
                 .map(feed -> {
-                    return FeedResponse.builder()
+                    FeedResponse response = FeedResponse.builder()
                             .feedId(feed.getId())
                             .title(feed.getTitle())
                             .description(feed.getDescription())
                             .build();
+                    return response;
                 }).collect(Collectors.toList());
     }
 
