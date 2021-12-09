@@ -47,6 +47,7 @@ public class UserServiceImpl implements UserService {
         userRepository.save(User.builder()
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
+                .githubId(request.getGithubId())
                 .role(Role.ROLE_USER)
                 .build());
 
