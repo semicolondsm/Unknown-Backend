@@ -33,20 +33,20 @@ public class FeedServiceImpl implements FeedService {
     @Override
     public void PostFeed(PostFeedRequest request) {
 
-        User user = userFacade.getUser();
+        userFacade.getUser();
 
-        Feed feed = feedRepository.save(
-                        Feed.builder()
-                                .title(request.getTitle())
-                                .description(request.getDescription())
-                                .createAt(LocalDateTime.now(ZoneId.of("Asia/Seoul")))
-                                .build()
+        feedRepository.save(
+                Feed.builder()
+                        .title(request.getTitle())
+                        .description(request.getDescription())
+                        .createAt(LocalDateTime.now(ZoneId.of("Asia/Seoul")))
+                        .build()
         );
     }
 
     @Override
     public void modifyFeed(ModifyFeedRequest request) {
-        User user = userFacade.getUser();
+        userFacade.getUser();
 
         Feed feed = feedFacade.getFeedById(request.getFeedId());
 
@@ -64,10 +64,10 @@ public class FeedServiceImpl implements FeedService {
 
     @Override
     public void removeFeed(Long id) {
-        User user = userRepository.findById(userFacade.getEmail())
+        userRepository.findById(userFacade.getEmail())
                 .orElseThrow(() -> UserNotFoundException.EXCEPTION);
 
-        Feed feed = feedRepository.findById(id)
+        feedRepository.findById(id)
                 .orElseThrow(() -> FeedNotExistsException.EXCEPTION);
 
         feedRepository.deleteById(id);
@@ -105,7 +105,7 @@ public class FeedServiceImpl implements FeedService {
     @Override
     public boolean closeFeed(Long feedId) {
 
-        User user  = userRepository.findById(userFacade.getEmail())
+        User user = userRepository.findById(userFacade.getEmail())
                 .orElseThrow(() -> UserNotFoundException.EXCEPTION);
 
 
