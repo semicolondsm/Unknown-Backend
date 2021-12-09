@@ -21,7 +21,7 @@ public class PostFeedRequest {
     private String description;
 
     @DateTimeFormat(pattern = "YYYY-MM-DD'T'hh:mm:ss")
-    private LocalDateTime createdTime;
+    private LocalDateTime createAt;
 
 
 }

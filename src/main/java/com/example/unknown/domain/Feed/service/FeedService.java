@@ -18,4 +18,6 @@ public interface FeedService {
 
     FeedResponse getOneFeed(Long feedId);
 
+    boolean closeFeed(Long feedId);
+
 }

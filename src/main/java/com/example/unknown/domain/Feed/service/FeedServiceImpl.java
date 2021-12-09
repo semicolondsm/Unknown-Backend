@@ -56,7 +56,7 @@ public class FeedServiceImpl implements FeedService {
 
         feedRepository.save(
                 Feed.builder()
-                        .modifyAt(request.getModifyTime())
+                        .modifyAt(LocalDateTime.now(ZoneId.of("Asia/Seoul")))
                         .build()
         );
 
@@ -100,6 +100,16 @@ public class FeedServiceImpl implements FeedService {
                 .orElseThrow(() -> FeedNotExistsException.EXCEPTION);
 
         return feedFacade.feedToFeedResponse(feed, user);
+    }
+
+    @Override
+    public boolean closeFeed(Long feedId) {
+
+        User user  = userRepository.findById(userFacade.getEmail())
+                .orElseThrow(() -> UserNotFoundException.EXCEPTION);
+
+
+        return false;
     }
 
 }
