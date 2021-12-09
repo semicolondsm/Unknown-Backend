@@ -3,7 +3,7 @@ package com.example.unknown.domain.Feed.presentation;
 import com.example.unknown.domain.Feed.presentation.dto.request.ModifyFeedRequest;
 import com.example.unknown.domain.Feed.presentation.dto.request.PostFeedRequest;
 import com.example.unknown.domain.Feed.presentation.dto.response.FeedResponse;
-import com.example.unknown.domain.Feed.service.FeedService;
+import com.example.unknown.domain.Feed.service.feed.FeedService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;

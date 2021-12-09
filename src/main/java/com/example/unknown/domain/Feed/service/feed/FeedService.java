@@ -1,4 +1,4 @@
-package com.example.unknown.domain.Feed.service;
+package com.example.unknown.domain.Feed.service.feed;
 
 import com.example.unknown.domain.Feed.presentation.dto.request.ModifyFeedRequest;
 import com.example.unknown.domain.Feed.presentation.dto.request.PostFeedRequest;

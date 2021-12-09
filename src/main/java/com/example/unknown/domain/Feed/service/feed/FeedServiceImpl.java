@@ -1,4 +1,4 @@
-package com.example.unknown.domain.Feed.service;
+package com.example.unknown.domain.Feed.service.feed;
 
 import com.example.unknown.domain.Feed.domain.Feed;
 import com.example.unknown.domain.Feed.domain.repository.FeedRepository;
@@ -7,6 +7,7 @@ import com.example.unknown.domain.Feed.facade.FeedFacade;
 import com.example.unknown.domain.Feed.presentation.dto.request.ModifyFeedRequest;
 import com.example.unknown.domain.Feed.presentation.dto.request.PostFeedRequest;
 import com.example.unknown.domain.Feed.presentation.dto.response.FeedResponse;
+import com.example.unknown.domain.Feed.service.feed.FeedService;
 import com.example.unknown.domain.User.domain.User;
 import com.example.unknown.domain.User.domain.repository.UserRepository;
 import com.example.unknown.domain.User.exception.UserNotFoundException;
