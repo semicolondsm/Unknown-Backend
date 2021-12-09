@@ -2,6 +2,7 @@ package com.example.unknown.domain.User.presentation;
 
 import com.example.unknown.domain.Admin.presentation.dto.request.VerifyCodeRequest;
 import com.example.unknown.domain.User.presentation.dto.request.ChangePasswordRequest;
+import com.example.unknown.domain.User.presentation.dto.request.RefreshTokenRequest;
 import com.example.unknown.domain.User.presentation.dto.request.UserRequest;
 import com.example.unknown.domain.User.service.UserService;
 import com.example.unknown.global.utils.token.dto.TokenResponse;
@@ -35,5 +36,10 @@ public class UserController {
     @PutMapping("/password")
     public void changePassword(@RequestBody @Valid ChangePasswordRequest request) {
         userService.changePassword(request);
+    }
+
+    @PutMapping("/refresh")
+    public TokenResponse tokenRefresh(@RequestBody @Valid RefreshTokenRequest request) {
+        return userService.tokenRefresh(request);
     }
 }

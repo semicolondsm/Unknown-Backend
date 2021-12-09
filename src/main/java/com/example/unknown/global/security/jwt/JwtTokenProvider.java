@@ -1,5 +1,8 @@
 package com.example.unknown.global.security.jwt;
 
+import com.example.unknown.domain.Refresh_token.domain.RefreshToken;
+import com.example.unknown.domain.Refresh_token.domain.repository.RefreshTokenRepository;
+import com.example.unknown.global.exception.InvalidTokenException;
 import com.example.unknown.global.security.auth.AuthUserDetailsService;
 import com.example.unknown.global.utils.token.dto.TokenResponse;
 import io.jsonwebtoken.Claims;
@@ -21,6 +24,8 @@ public class JwtTokenProvider {
 
     private final JwtProperties jwtProperties;
     private final AuthUserDetailsService authUserDetailsService;
+    private final RefreshTokenRepository refreshTokenRepository;
+
 
     public String generateAccessToken(String email) {
         return Jwts.builder()
@@ -48,11 +53,20 @@ public class JwtTokenProvider {
         String accessToken = generateAccessToken(id);
         String refreshToken = generateRefreshToken(id);
 
+        refreshTokenRepository.save(RefreshToken.builder()
+                .email(id)
+                .refreshToken(refreshToken)
+                .refreshExp(jwtProperties.getRefresh() * 1000)
+                .build());
+
         return new TokenResponse(accessToken, refreshToken);
     }
 
-    public boolean isRefreshToken(String token) {
-        return getTokenBody(token).get("type").equals("refresh");
+    public void isRefreshToken(String token) {
+        if (!getTokenBody(token).get("type").equals("refresh_token")) {
+            throw InvalidTokenException.EXCEPTION;
+        }
+
     }
 
     public String resolveToken(HttpServletRequest request) {

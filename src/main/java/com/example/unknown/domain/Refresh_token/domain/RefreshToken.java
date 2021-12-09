@@ -1,9 +1,6 @@
 package com.example.unknown.domain.Refresh_token.domain;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;
 import org.springframework.data.redis.core.TimeToLive;
@@ -11,6 +8,7 @@ import org.springframework.data.redis.core.TimeToLive;
 import java.io.Serializable;
 
 @Getter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @RedisHash(value = "refresh_token")

@@ -3,17 +3,17 @@ package com.example.unknown.domain.User.service;
 import com.example.unknown.domain.Admin.presentation.dto.request.VerifyCodeRequest;
 import com.example.unknown.domain.Mail.domain.AuthCode;
 import com.example.unknown.domain.Mail.domain.repository.AuthCodeRepository;
+import com.example.unknown.domain.Refresh_token.domain.repository.RefreshTokenRepository;
 import com.example.unknown.domain.User.domain.User;
 import com.example.unknown.domain.User.domain.repository.UserRepository;
 import com.example.unknown.domain.User.domain.types.Role;
 import com.example.unknown.domain.User.facade.UserAuthCodeFacade;
 import com.example.unknown.domain.User.facade.UserFacade;
 import com.example.unknown.domain.User.presentation.dto.request.ChangePasswordRequest;
+import com.example.unknown.domain.User.presentation.dto.request.RefreshTokenRequest;
 import com.example.unknown.domain.User.presentation.dto.request.UserRequest;
-import com.example.unknown.global.exception.InvalidCodeException;
-import com.example.unknown.global.exception.InvalidMessageException;
-import com.example.unknown.global.exception.InvalidPasswordException;
-import com.example.unknown.global.exception.InvalidRoleException;
+import com.example.unknown.global.exception.*;
+import com.example.unknown.global.security.jwt.JwtProperties;
 import com.example.unknown.global.security.jwt.JwtTokenProvider;
 import com.example.unknown.global.utils.token.dto.TokenResponse;
 import lombok.RequiredArgsConstructor;
@@ -34,6 +34,8 @@ public class UserServiceImpl implements UserService {
     private final AuthCodeRepository authCodeRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtTokenProvider jwtTokenProvider;
+    private final RefreshTokenRepository refreshTokenRepository;
+    private final JwtProperties jwtProperties;
 
     @Override
     public void signUp(UserRequest request) {
@@ -100,5 +102,19 @@ public class UserServiceImpl implements UserService {
                 .build());
 
         userAuthCodeFacade.AuthCodeDelete(request.getEmail());
+    }
+
+    @Override
+    public TokenResponse tokenRefresh(RefreshTokenRequest request) {
+        jwtTokenProvider.isRefreshToken(request.getRefresh_token());
+
+        return refreshTokenRepository.findByToken(request.getRefresh_token())
+                .map(token -> {
+                    String accessToken = jwtTokenProvider.generateAccessToken(token.getEmail());
+                    String newRefreshToken = jwtTokenProvider.generateRefreshToken(request.getRefresh_token());
+                    token.update(newRefreshToken, jwtProperties.getRefresh());
+                    return new TokenResponse(accessToken, newRefreshToken);
+                })
+                .orElseThrow(() -> InvalidTokenException.EXCEPTION);
     }
 }
