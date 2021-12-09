@@ -33,7 +33,7 @@ public class FeedServiceImpl implements FeedService {
     @Override
     public void PostFeed(PostFeedRequest request) {
 
-        userFacade.getUser();
+        userFacade.isAlreadyExists(userFacade.getEmail());
 
         feedRepository.save(
                 Feed.builder()
@@ -46,7 +46,7 @@ public class FeedServiceImpl implements FeedService {
 
     @Override
     public void modifyFeed(ModifyFeedRequest request) {
-        userFacade.getUser();
+        userFacade.isAlreadyExists(userFacade.getEmail());
 
         Feed feed = feedFacade.getFeedById(request.getFeedId());
 
@@ -75,18 +75,16 @@ public class FeedServiceImpl implements FeedService {
 
     @Override
     public List<FeedResponse> getFeed(int page, int range) {
-        User user = userRepository.findById(userFacade.getEmail())
-                .orElse(null);
+        userFacade.isAlreadyExists(userFacade.getEmail());
 
         return feedRepository.findFeedById(true, PageRequest.of(page, range, Sort.by("id").descending()))
                 .stream()
                 .map(feed -> {
-                    FeedResponse response = FeedResponse.builder()
+                    return FeedResponse.builder()
                             .feedId(feed.getId())
                             .title(feed.getTitle())
                             .description(feed.getDescription())
                             .build();
-                    return response;
                 }).collect(Collectors.toList());
     }
 
