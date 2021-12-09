@@ -19,13 +19,11 @@ public class FeedFacade {
                 .orElseThrow(() -> FeedNotExistsException.EXCEPTION);
     }
 
-    public FeedResponse feedToFeedResponse (Feed feed, User user) {
+    public FeedResponse feedToFeedResponse(Feed feed, User user) {
 
-        FeedResponse feedResponse = FeedResponse.builder()
+        return FeedResponse.builder()
                 .title(feed.getTitle())
                 .description(feed.getDescription())
                 .build();
-
-        return feedResponse;
     }
 }

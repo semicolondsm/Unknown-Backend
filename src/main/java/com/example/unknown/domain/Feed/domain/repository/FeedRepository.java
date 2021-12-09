@@ -12,6 +12,7 @@ import java.util.Optional;
 
 public interface FeedRepository extends JpaRepository<Feed, Long> {
     Optional<Feed> findFeedById(Long Id);
+
     List<Feed> findById(User user);
 
     Page<Feed> findFeedById(boolean page, PageRequest range);
