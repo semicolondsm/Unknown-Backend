@@ -34,7 +34,7 @@ public class JwtTokenProvider {
                 .setSubject(email)
                 .claim("type", "access")
                 .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + jwtProperties.getAccess() * 1000))
+                .setExpiration(new Date(System.currentTimeMillis() + jwtProperties.getAccessExp() * 1000))
                 .compact();
     }
 
@@ -45,7 +45,7 @@ public class JwtTokenProvider {
                 .setSubject(email)
                 .claim("type", "refresh")
                 .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + jwtProperties.getRefresh() * 1000))
+                .setExpiration(new Date(System.currentTimeMillis() + jwtProperties.getRefreshExp() * 1000))
                 .compact();
     }
 
@@ -56,14 +56,14 @@ public class JwtTokenProvider {
         refreshTokenRepository.save(RefreshToken.builder()
                 .email(id)
                 .refreshToken(refreshToken)
-                .refreshExp(jwtProperties.getRefresh() * 1000)
+                .refreshExp(jwtProperties.getRefreshExp() * 1000)
                 .build());
 
         return new TokenResponse(accessToken, refreshToken);
     }
 
     public void isRefreshToken(String token) {
-        if (!getTokenBody(token).get("type").equals("refresh_token")) {
+        if (!getTokenBody(token).get("type").equals("refresh")) {
             throw InvalidTokenException.EXCEPTION;
         }
 

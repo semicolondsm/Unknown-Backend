@@ -24,6 +24,12 @@ public class UserFacade {
 
         return authentication.getName();
     }
+
+    public User getByEmail(String email) {
+        return userRepository.findById(email)
+                .orElseThrow(() -> UserNotExistsException.EXCEPTION);
+    }
+
     public User getUser() {
         return userRepository.findById(getEmail())
                 .orElseThrow(() -> CertificateNotFoundException.EXCEPTION);
