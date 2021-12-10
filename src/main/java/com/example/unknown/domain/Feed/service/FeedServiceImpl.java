@@ -11,11 +11,14 @@ import com.example.unknown.domain.User.domain.User;
 import com.example.unknown.domain.User.domain.repository.UserRepository;
 import com.example.unknown.domain.User.exception.UserNotFoundException;
 import com.example.unknown.domain.User.facade.UserFacade;
+import com.example.unknown.domain.category.service.CategoryService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.awt.print.Pageable;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.List;
@@ -27,6 +30,7 @@ public class FeedServiceImpl implements FeedService {
 
     private final UserRepository userRepository;
     private final FeedRepository feedRepository;
+    private final CategoryService categoryService;
     private final UserFacade userFacade;
     private final FeedFacade feedFacade;
 
@@ -34,6 +38,7 @@ public class FeedServiceImpl implements FeedService {
     public void PostFeed(PostFeedRequest request) {
 
         userFacade.getUser();
+        feedFacade.getCategoryById();
 
         feedRepository.save(
                 Feed.builder()
@@ -42,6 +47,7 @@ public class FeedServiceImpl implements FeedService {
                         .createAt(LocalDateTime.now(ZoneId.of("Asia/Seoul")))
                         .build()
         );
+
     }
 
     @Override
@@ -100,6 +106,13 @@ public class FeedServiceImpl implements FeedService {
                 .orElseThrow(() -> FeedNotExistsException.EXCEPTION);
 
         return feedFacade.feedToFeedResponse(feed, user);
+    }
+
+    @Override
+    public void findAllByCategory(String category, User user, Pageable page) {
+
+        Page<Feed> feeds = feedRepository.findAllByCategory(category, page);
+
     }
 
     @Override
