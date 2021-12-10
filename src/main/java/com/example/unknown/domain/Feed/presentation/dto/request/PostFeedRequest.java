@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
@@ -22,6 +23,11 @@ public class PostFeedRequest {
 
     @DateTimeFormat(pattern = "YYYY-MM-DD'T'hh:mm:ss")
     private LocalDateTime createAt;
+
+    @NotEmpty
+    private String category;
+
+
 
 
 }
