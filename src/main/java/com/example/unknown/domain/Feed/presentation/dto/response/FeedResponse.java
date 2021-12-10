@@ -5,6 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Getter
 @Builder
 @AllArgsConstructor
@@ -14,5 +17,11 @@ public class FeedResponse {
     private Long feedId;
     private String title;
     private String description;
+    private List<FeedResponse> feedResponseList = new ArrayList<>();
+
+    @Builder
+    public FeedResponse(List<FeedResponse> feedResponses) {
+        this.feedResponseList = feedResponses;
+    }
     
 }
