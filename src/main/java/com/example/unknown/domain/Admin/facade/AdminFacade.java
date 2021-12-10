@@ -16,9 +16,4 @@ public class AdminFacade {
         return adminRepository.findById(email).orElseThrow(() -> AdminExistsException.EXCEPTION);
     }
 
-    public void isAlreadyExists(String email) {
-        if (adminRepository.findById(email).isPresent()) {
-            throw AdminExistsException.EXCEPTION;
-        }
-    }
 }
