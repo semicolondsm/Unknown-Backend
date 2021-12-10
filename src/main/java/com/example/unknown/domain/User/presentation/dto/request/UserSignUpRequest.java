@@ -9,7 +9,7 @@ import javax.validation.constraints.Pattern;
 
 @Getter
 @AllArgsConstructor
-public class UserRequest {
+public class UserSignUpRequest {
 
     @NotEmpty
     @Email(message = "유효하지 않은 이메일 형식입니다.",
