@@ -1,15 +1,14 @@
-version: '3.7'
-
+version: "3"
 services:
-  application:
-    image:  lyutvs/unknown_redis
-    build: .
-    links:
-      - redis
+  jenkins:
+    container_name: jenkins-compose
+    build:
+      context: jenkins-dockerfile
+      dockerfile: Dockerfile
+    user: root
     ports:
-        - 9999:9999
-
-  redis:
-    image: redis
-    ports:
-      - 6379:6379
+      - 8000:8080
+      - 8888:50000
+    volumes:
+      - /home/ubuntu/compose/jenkins:/var/jenkins_home
+      - /home/ubuntu/compose/.ssh:/root/.ssh
