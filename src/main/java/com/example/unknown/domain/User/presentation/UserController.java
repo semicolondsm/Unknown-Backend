@@ -2,7 +2,9 @@ package com.example.unknown.domain.User.presentation;
 
 import com.example.unknown.domain.Admin.presentation.dto.request.VerifyCodeRequest;
 import com.example.unknown.domain.User.presentation.dto.request.ChangePasswordRequest;
-import com.example.unknown.domain.User.presentation.dto.request.UserRequest;
+import com.example.unknown.domain.User.presentation.dto.request.RefreshTokenRequest;
+import com.example.unknown.domain.User.presentation.dto.request.UserLoginRequest;
+import com.example.unknown.domain.User.presentation.dto.request.UserSignUpRequest;
 import com.example.unknown.domain.User.service.UserService;
 import com.example.unknown.global.utils.token.dto.TokenResponse;
 import lombok.RequiredArgsConstructor;
@@ -18,12 +20,12 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("/signup")
-    public void signUp(@RequestBody @Valid UserRequest request) {
+    public void signUp(@RequestBody @Valid UserSignUpRequest request) {
         userService.signUp(request);
     }
 
     @PostMapping("/login")
-    public TokenResponse login(@RequestBody @Valid UserRequest request) {
+    public TokenResponse login(@RequestBody @Valid UserLoginRequest request) {
         return userService.login(request);
     }
 
@@ -35,5 +37,10 @@ public class UserController {
     @PutMapping("/password")
     public void changePassword(@RequestBody @Valid ChangePasswordRequest request) {
         userService.changePassword(request);
+    }
+
+    @PutMapping("/refresh")
+    public TokenResponse tokenRefresh(@RequestHeader("refresh_token") String refreshToken) {
+        return userService.tokenRefresh(refreshToken);
     }
 }

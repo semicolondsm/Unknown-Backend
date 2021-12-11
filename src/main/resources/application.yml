@@ -38,5 +38,5 @@ auth:
     secret: ${JWT_SECRET}
     header: ${JWT_HEADER}
     prefix: ${JWT_PREFIX}
-    access: ${JWT_ACCESS}
-    refresh: ${JWT_REFRESH}
+    accessExp: ${JWT_ACCESS}
+    refreshExp: ${JWT_REFRESH}
