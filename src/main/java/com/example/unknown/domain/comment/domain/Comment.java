@@ -1,6 +1,6 @@
 package com.example.unknown.domain.comment.domain;
 
-import com.example.unknown.domain.User.domain.User;
+import com.example.unknown.domain.user.domain.User;
 import lombok.*;
 
 import javax.persistence.*;

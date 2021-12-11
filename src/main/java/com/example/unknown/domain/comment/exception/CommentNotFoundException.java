@@ -1,6 +1,5 @@
 package com.example.unknown.domain.comment.exception;
 
-import com.example.unknown.domain.User.exception.UserNotVerificationException;
 import com.example.unknown.global.error.exception.CustomException;
 import com.example.unknown.global.error.exception.ErrorCode;
 
