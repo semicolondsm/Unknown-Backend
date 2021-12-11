@@ -1,6 +1,5 @@
 package com.example.unknown.domain.comment.presentation;
 
-import com.example.unknown.domain.Feed.presentation.dto.response.FeedResponse;
 import com.example.unknown.domain.comment.presentation.dto.request.PostCommentRequest;
 import com.example.unknown.domain.comment.presentation.dto.request.EditCommentRequest;
 import com.example.unknown.domain.comment.presentation.dto.request.RemoveCommentRequest;
@@ -9,9 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.ReportAsSingleViolation;
 import javax.validation.Valid;
-import java.util.List;
 
 @RestController
 @RequestMapping("/comment")

@@ -1,7 +1,7 @@
 package com.example.unknown.global.security.jwt;
 
-import com.example.unknown.domain.Refresh_token.domain.RefreshToken;
-import com.example.unknown.domain.Refresh_token.domain.repository.RefreshTokenRepository;
+import com.example.unknown.domain.refresh_token.domain.RefreshToken;
+import com.example.unknown.domain.refresh_token.domain.repository.RefreshTokenRepository;
 import com.example.unknown.global.exception.InvalidTokenException;
 import com.example.unknown.global.security.auth.AuthUserDetailsService;
 import com.example.unknown.global.utils.token.dto.TokenResponse;

@@ -1,7 +1,7 @@
 package com.example.unknown.domain.comment.service;
 
-import com.example.unknown.domain.User.domain.User;
-import com.example.unknown.domain.User.facade.UserFacade;
+import com.example.unknown.domain.user.domain.User;
+import com.example.unknown.domain.user.facade.UserFacade;
 import com.example.unknown.domain.comment.domain.Comment;
 import com.example.unknown.domain.comment.domain.repository.CommentRepository;
 import com.example.unknown.domain.comment.facade.CommentFacade;

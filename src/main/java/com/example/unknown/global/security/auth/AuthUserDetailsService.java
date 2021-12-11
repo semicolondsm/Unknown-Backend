@@ -1,6 +1,6 @@
 package com.example.unknown.global.security.auth;
 
-import com.example.unknown.domain.User.domain.repository.UserRepository;
+import com.example.unknown.domain.user.domain.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
