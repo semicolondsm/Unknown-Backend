@@ -47,6 +47,7 @@ public class UserServiceImpl implements UserService {
         userRepository.save(User.builder()
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
+                .githubId(request.getGithubId())
                 .role(Role.ROLE_USER)
                 .build());
 
@@ -55,7 +56,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public TokenResponse login(UserRequest request) {
-        User user = userFacade.getUserById(request.getEmail());
+        User user = userFacade.getUser();
 
         if (!user.getRole().equals(Role.ROLE_USER)) {
             throw InvalidRoleException.EXCEPTION;

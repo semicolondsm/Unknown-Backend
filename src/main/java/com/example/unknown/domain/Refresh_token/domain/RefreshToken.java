@@ -1,4 +1,4 @@
-package com.example.unknown.domain.refresh_token.domain;
+package com.example.unknown.domain.Refresh_token.domain;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;

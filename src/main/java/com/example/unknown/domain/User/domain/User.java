@@ -1,5 +1,6 @@
 package com.example.unknown.domain.User.domain;
 
+import com.example.unknown.domain.Feed.domain.Feed;
 import com.example.unknown.domain.User.domain.types.Role;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -9,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 
 @Getter
 @Builder
@@ -24,9 +26,15 @@ public class User implements UserDetails {
     @Column(nullable = false)
     private String password;
 
+    @Column(nullable = false)
+    private String githubId;
+
     @Column(length = 20)
     @Enumerated(EnumType.STRING)
     private Role role;
+
+    @OneToMany(mappedBy = "userId")
+    private List<Feed> feeds;
 
     public User updatePassword(String password) {
         this.password = password;

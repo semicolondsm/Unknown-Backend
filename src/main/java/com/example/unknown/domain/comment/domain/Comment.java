@@ -4,6 +4,7 @@ import com.example.unknown.domain.User.domain.User;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 
 @Getter
@@ -22,14 +23,20 @@ public class Comment {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
+    private LocalDateTime commentCreateAt;
+    private LocalDateTime commentModifyAt;
+
+
     @Builder
-    public Comment(Long commentId, String content, User user) {
+    public Comment(Long commentId, String content, User user, LocalDateTime commentCreateAt, LocalDateTime commentModifyAt) {
         this.commentId = commentId;
         this.user = user;
         this.comment = content;
+        this.commentCreateAt = commentCreateAt;
+        this.commentModifyAt = commentModifyAt;
     }
 
-    public void editContent(String comment) {
+    public void modifyContent(String comment) {
         this.comment = comment;
     }
 

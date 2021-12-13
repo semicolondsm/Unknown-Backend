@@ -1,15 +1,26 @@
 package com.example.unknown.domain.comment.service;
 
+import com.example.unknown.domain.Feed.domain.Feed;
+import com.example.unknown.domain.Feed.presentation.dto.response.FeedResponse;
 import com.example.unknown.domain.User.domain.User;
+import com.example.unknown.domain.User.domain.repository.UserRepository;
 import com.example.unknown.domain.User.facade.UserFacade;
 import com.example.unknown.domain.comment.domain.Comment;
 import com.example.unknown.domain.comment.domain.repository.CommentRepository;
 import com.example.unknown.domain.comment.facade.CommentFacade;
-import com.example.unknown.domain.comment.presentation.dto.request.CommentRequest;
+import com.example.unknown.domain.comment.presentation.dto.request.PostCommentRequest;
 import com.example.unknown.domain.comment.presentation.dto.request.EditCommentRequest;
 import com.example.unknown.domain.comment.presentation.dto.request.RemoveCommentRequest;
+import com.example.unknown.domain.comment.presentation.dto.response.CommentResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -17,16 +28,18 @@ public class CommentServiceImpl implements CommentService {
 
     private final CommentRepository commentRepository;
     private final UserFacade userFacade;
+    private final UserRepository userRepository;
     private final CommentFacade commentFacade;
 
     @Override
-    public void postComment(CommentRequest request) {
+    public void postComment(PostCommentRequest request) {
 
-        User user = userFacade.getUserById(request.getComment());
+        User user = userFacade.getUser();
 
         commentRepository.save(
                 Comment.builder()
                         .user(user)
+                        .commentCreateAt(LocalDateTime.now(ZoneId.of("Asia/Seoul")))
                         .content(request.getComment())
                         .build()
         );
@@ -34,15 +47,20 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public void editComment(EditCommentRequest request) {
+    public void modifyComment(EditCommentRequest request) {
 
         userFacade.isAlreadyExists(request.getComment());
 
         Comment comment = commentFacade.getCommentById(request.getCommentId());
 
-        comment.editContent(request.getComment());
+        comment
+                .modifyContent(request.getComment());
 
-        commentRepository.save(comment);
+        commentRepository.save(
+                Comment.builder()
+                        .commentModifyAt(LocalDateTime.now(ZoneId.of("Asia/Seoul")))
+                        .build()
+        );
     }
 
     @Override
