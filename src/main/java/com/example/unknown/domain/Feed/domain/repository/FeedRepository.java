@@ -17,6 +17,4 @@ public interface FeedRepository extends JpaRepository<Feed, Long> {
     List<Feed> findById(User user);
 
     Page<Feed> findFeedById(boolean page, PageRequest range);
-
-    Page<Feed> findAllByCategory(String category, Pageable page);
 }
