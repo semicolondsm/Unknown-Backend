@@ -20,8 +20,6 @@ public interface FeedService {
 
     FeedResponse getOneFeed(Long feedId);
 
-    void findAllByCategory(String category, User user, Pageable page);
-
     boolean closeFeed(Long feedId);
 
 }
